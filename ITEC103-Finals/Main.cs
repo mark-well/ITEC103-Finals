@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace ITEC103_Finals
 {
     public partial class Main : Form
@@ -19,9 +21,17 @@ namespace ITEC103_Finals
             items.Add(new Item("Banana", 10));
             items.Add(new Item("Caramel Machiato L", 49));
 
-            foreach (Item item in items)
+            DataTable allItems = DatabaseHandler.LoadItemsFromDatabase();
+            foreach (DataRow row in allItems.Rows)
             {
-                AddNewItem(item.id, item.itemName, item.itemPrice);
+                int id = Convert.ToInt32(row["id"]);
+                string itemName = Convert.ToString(row["itemName"]);
+                int itemPrice = Convert.ToInt32(row["itemPrice"]);
+                byte[] itemImageByteData = (byte[])row["itemImage"];
+                //Image itemImage = DecompressImage(itemImageByteData);
+
+                //Add the item to the display
+                AddNewItem(id,itemName,itemPrice);
             }
         }
 

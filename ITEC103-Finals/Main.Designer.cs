@@ -325,7 +325,7 @@
         #endregion
         private Panel panel1;
         private Label appName;
-        private FlowLayoutPanel itemContainer;
+        public FlowLayoutPanel itemContainer;
         private Panel item1;
         private Label item1Name;
         private PictureBox item1Image;

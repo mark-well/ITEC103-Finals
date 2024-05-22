@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ITEC103_Finals
 {
-    public class ItemHandler
+    public static class ItemHandler
     {
 
     }
