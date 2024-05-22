@@ -1,26 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ITEC103_Finals
 {
-    public partial class Main : Form
+    public partial class ManageItem : Form
     {
-        List<Item> items;
-        public Main()
+        List<int> ids = new List<int>();
+
+        public ManageItem()
         {
             InitializeComponent();
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private void ManageItem_Load(object sender, EventArgs e)
         {
-            items = new List<Item>();
-            items.Add(new Item("Apple", 10));
-            items.Add(new Item("Cocaine", 100000000));
-            items.Add(new Item("Heroine", 600000));
-            items.Add(new Item("Crystal Meth", 50000));
-            items.Add(new Item("Crystal Meeeeeeeeth", 50000));
-            items.Add(new Item("Banana", 10));
-            items.Add(new Item("Caramel Machiato L", 49));
-
             DataTable allItems = DatabaseHandler.LoadItemsFromDatabase();
             foreach (DataRow row in allItems.Rows)
             {
@@ -29,9 +29,10 @@ namespace ITEC103_Finals
                 int itemPrice = Convert.ToInt32(row["itemPrice"]);
                 byte[] itemImageByteData = (byte[])row["itemImage"];
                 Image itemImage = ImageProccessor.ConvertByteArrayToImage(itemImageByteData);
-
-                //Add the item to the display
                 AddNewItem(id, itemName, itemPrice, itemImage);
+
+                //Add existing id to the list
+                ids.Add(id);
             }
         }
 
@@ -85,21 +86,73 @@ namespace ITEC103_Finals
             item.Controls.Add(itemName);
             item.Controls.Add(image);
             itemContainer.Controls.Add(item);
-            image.Click += AddItemToCart_Click;
+            //image.Click += AddItemToCart_Click;
         }
 
-        private void AddItemToCart_Click(object sender, EventArgs e)
+        private void addItemToInventoryButton_Click(object sender, EventArgs e)
         {
-            Control item = sender as Control;
-            Control parent = item.Parent;
-            Control itemName = parent.Controls["itemName"];
-            Control itemPrice = parent.Controls["itemPrice"];
+            if (itemNameInput.Text == null) return;
+            if (itemPriceInput.Text == null) return;
+            if (itemImage.Image == null) return;
+
+            int id = GenerateNewId();
+            string itemName = itemNameInput.Text;
+            int itemPrice = Convert.ToInt32(itemPriceInput.Text);
+            Image itemImageIn = itemImage.Image;
+            byte[] compressedImage = ImageProccessor.ConvertImageToByteArray(itemImageIn);
+
+            //Add new item to database
+            DatabaseHandler.AddNewItemToInventory(id, itemName, itemPrice, compressedImage);
+            AddNewItem(id, itemName, itemPrice,itemImageIn);
+            itemNameInput.Text = "";
+            itemPriceInput.Text = "";
+            itemImage.Image = null;
+            MessageBox.Show("Succesfully Added New Item");
         }
 
-        private void menuButton_Click(object sender, EventArgs e)
+        private void selectImageButton_Click(object sender, EventArgs e)
         {
-            ManageItem manageItemForm = new ManageItem();
-            manageItemForm.Show();
+            string imageLocation = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "All Files(*.*)|*.*";
+
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    imageLocation = dialog.FileName;
+                    itemImage.ImageLocation = imageLocation;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An error has occured");
+            }
+        }
+
+        //Generate new id
+        private int GenerateNewId()
+        {
+            Random rand = new Random();
+            bool generating = true;
+            int id = 0;
+            int minRange = 1000;
+            int maxRange = 10000;
+            while (generating)
+            {
+                id = rand.Next(minRange, maxRange);
+                if (ids.Contains(id)) continue;
+
+                generating = false;
+            }
+
+            return id;
+        }
+
+        private void backButtonIcon_Click(object sender, EventArgs e)
+        {
+            Main mainForm = new Main();
+            mainForm.Show();
             this.Hide();
         }
     }

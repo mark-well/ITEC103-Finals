@@ -31,12 +31,37 @@ namespace ITEC103_Finals
                 }
                 connection.Close();
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                MessageBox.Show("An error occured while connecting to the database" + err);
 
             }
 
             return data;
+        }
+
+        //Adds an item to the database
+        public static void AddNewItemToInventory(int id, string name, int price, byte[] image)
+        {
+            //Opens the connection to the database
+            if (ConnectionState.Closed == connection.State) connection.Open();
+
+            try
+            {
+                string insertQuery = "INSERT INTO item (id, itemName, itemPrice, itemImage) VALUES (@id, @itemName, @itemPrice, @itemImage)";
+                MySqlCommand command = new MySqlCommand(insertQuery, connection);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@itemName", name);
+                command.Parameters.AddWithValue("@itemprice", price);
+                command.Parameters.AddWithValue("@itemImage", image);
+                command.ExecuteNonQuery();
+
+                connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("An error occured while connecting to the database" + err);
+            }
         }
     }
 }

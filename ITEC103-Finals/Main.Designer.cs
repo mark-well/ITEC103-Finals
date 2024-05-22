@@ -37,7 +37,6 @@
             item1Name = new Label();
             itemPrice = new Label();
             item1Image = new PictureBox();
-            printPreviewDialog1 = new PrintPreviewDialog();
             panel2 = new Panel();
             cartDisplay = new FlowLayoutPanel();
             cartItem = new Panel();
@@ -81,6 +80,7 @@
             menuButton.SizeMode = PictureBoxSizeMode.Zoom;
             menuButton.TabIndex = 1;
             menuButton.TabStop = false;
+            menuButton.Click += menuButton_Click;
             // 
             // appName
             // 
@@ -143,24 +143,15 @@
             // 
             // item1Image
             // 
+            item1Image.BackColor = Color.Transparent;
             item1Image.BackgroundImageLayout = ImageLayout.Center;
             item1Image.Image = (Image)resources.GetObject("item1Image.Image");
             item1Image.Location = new Point(2, 2);
             item1Image.Name = "item1Image";
             item1Image.Size = new Size(95, 80);
-            item1Image.SizeMode = PictureBoxSizeMode.StretchImage;
+            item1Image.SizeMode = PictureBoxSizeMode.Zoom;
             item1Image.TabIndex = 0;
             item1Image.TabStop = false;
-            // 
-            // printPreviewDialog1
-            // 
-            printPreviewDialog1.AutoScrollMargin = new Size(0, 0);
-            printPreviewDialog1.AutoScrollMinSize = new Size(0, 0);
-            printPreviewDialog1.ClientSize = new Size(400, 300);
-            printPreviewDialog1.Enabled = true;
-            printPreviewDialog1.Icon = (Icon)resources.GetObject("printPreviewDialog1.Icon");
-            printPreviewDialog1.Name = "printPreviewDialog1";
-            printPreviewDialog1.Visible = false;
             // 
             // panel2
             // 
@@ -330,7 +321,6 @@
         private Label item1Name;
         private PictureBox item1Image;
         private Label itemPrice;
-        private PrintPreviewDialog printPreviewDialog1;
         private Panel panel2;
         private Label label1;
         private Label line;
