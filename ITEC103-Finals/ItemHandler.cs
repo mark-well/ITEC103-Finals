@@ -8,7 +8,16 @@ namespace ITEC103_Finals
 {
     public static class ItemHandler
     {
+        //Get the id of the item that is embedded to the tag property
+        public static int GetItemId(object sender)
+        {
+            Control triger = sender as Control;
+            Control item = triger.Parent;
+            ItemEmbeddedData itemTag = item.Tag as ItemEmbeddedData;
+            int id = itemTag.id;
 
+            return id;
+        }
     }
 
     public struct Item

@@ -4,7 +4,6 @@ namespace ITEC103_Finals
 {
     public partial class Main : Form
     {
-        List<Item> items;
         public Main()
         {
             InitializeComponent();
@@ -12,15 +11,6 @@ namespace ITEC103_Finals
 
         private void Main_Load(object sender, EventArgs e)
         {
-            items = new List<Item>();
-            items.Add(new Item("Apple", 10));
-            items.Add(new Item("Cocaine", 100000000));
-            items.Add(new Item("Heroine", 600000));
-            items.Add(new Item("Crystal Meth", 50000));
-            items.Add(new Item("Crystal Meeeeeeeeth", 50000));
-            items.Add(new Item("Banana", 10));
-            items.Add(new Item("Caramel Machiato L", 49));
-
             DataTable allItems = DatabaseHandler.LoadItemsFromDatabase();
             foreach (DataRow row in allItems.Rows)
             {

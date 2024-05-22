@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
@@ -60,6 +61,27 @@ namespace ITEC103_Finals
             }
             catch (Exception err)
             {
+                MessageBox.Show("An error occured while connecting to the database" + err);
+            }
+        }
+
+        //Deletes an item from the database
+        public static bool DeleteItemFromInventory(int id)
+        {
+            //Opens the connection to the database
+            if (ConnectionState.Closed == connection.State) connection.Open();
+
+            try
+            {
+                string deleteQuery = $"DELETE FROM `item` WHERE id = {id};";
+                MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+                command.ExecuteNonQuery();
+                connection.Close();
+                return true;
+            }
+            catch (Exception err)
+            {
+                return false;
                 MessageBox.Show("An error occured while connecting to the database" + err);
             }
         }

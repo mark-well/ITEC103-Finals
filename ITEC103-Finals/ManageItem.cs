@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITEC103_Finals.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -42,53 +43,84 @@ namespace ITEC103_Finals
             int imageWidth = 95;
             int imageHeight = 80;
 
-            Panel item = new Panel();
-            item.Size = new Size(panelSize, panelSize);
-            item.BorderStyle = BorderStyle.FixedSingle;
-            item.Name = "item";
-            item.BackColor = Color.White;
-            item.Tag = new ItemEmbeddedData { id = _id };
+            PictureBox deleteItemButton = new PictureBox();
+            deleteItemButton.Image = Properties.Resources.delete;
+            deleteItemButton.Location = new Point(63, 109);
+            deleteItemButton.Name = "deleteItemButton";
+            deleteItemButton.Size = new Size(20, 20);
+            deleteItemButton.SizeMode = PictureBoxSizeMode.Zoom;
+            deleteItemButton.TabIndex = 5;
+            deleteItemButton.Click += DeleteItem;
 
-            PictureBox image = new PictureBox();
-            image.Location = new Point(2, 2);
-            image.Width = imageWidth;
-            image.Height = imageHeight;
-            image.Name = "itemImage";
-            image.Image = itemImage;
-            image.SizeMode = PictureBoxSizeMode.Zoom;
-            image.TabIndex = 0;
-            image.TabStop = false;
-            image.BackColor = Color.White;
+            PictureBox editItemButton = new PictureBox();
+            editItemButton.Image = Properties.Resources.pen;
+            editItemButton.Location = new Point(15, 109);
+            editItemButton.Name = "editItemButton";
+            editItemButton.Size = new Size(20, 20);
+            editItemButton.SizeMode = PictureBoxSizeMode.Zoom;
+            editItemButton.TabIndex = 4;
+            editItemButton.TabStop = false;
+            editItemButton.Click += EditItem;
+
+            Label line = new Label();
+            line.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            line.BackColor = Color.Black;
+            line.BorderStyle = BorderStyle.Fixed3D;
+            line.Location = new Point(4, 98);
+            line.Name = "line";
+            line.Size = new Size(93, 2);
+            line.TabIndex = 3;
 
             Label itemName = new Label();
             itemName.AutoSize = true;
             itemName.BackColor = Color.Transparent;
-            itemName.Dock = DockStyle.Bottom;
             itemName.ForeColor = Color.Black;
-            itemName.Location = new Point(0, 0);
+            itemName.Location = new Point(0, 68);
             itemName.MaximumSize = new Size(100, 0);
             itemName.MinimumSize = new Size(100, 0);
-            itemName.Name = "item1Name";
-            itemName.Size = new Size(100, 15);
+            itemName.Name = "itemName";
+            itemName.Size = new Size(100, 30);
             itemName.TabIndex = 1;
             itemName.Text = name;
             itemName.TextAlign = ContentAlignment.MiddleCenter;
-
+            
             Label itemPrice = new Label();
             itemPrice.AutoSize = true;
-            itemPrice.Location = new Point(0, 0);
-            itemPrice.Size = new Size(26, 15);
-            itemPrice.Text = "P" + Convert.ToString(price);
-            itemPrice.Name = "itemPrice";
             itemPrice.Dock = DockStyle.Top;
+            itemPrice.Location = new Point(0, 0);
+            itemPrice.Name = price.ToString();
+            itemPrice.Size = new Size(26, 15);
+            itemPrice.TabIndex = 2;
+            itemPrice.Text = price.ToString();
 
-            item.Controls.Add(itemPrice);
+            PictureBox image = new PictureBox();
+            image.BackColor = Color.Transparent;
+            image.BackgroundImageLayout = ImageLayout.Center;
+            image.Image = itemImage;
+            image.Location = new Point(2, 2);
+            image.Name = "itemImage";
+            image.Size = new Size(95, 80);
+            image.SizeMode = PictureBoxSizeMode.Zoom;
+            image.TabIndex = 0;
+            image.TabStop = false;
+
+            Panel item = new Panel();
+            item.BorderStyle = BorderStyle.FixedSingle;
+            item.Controls.Add(deleteItemButton);
+            item.Controls.Add(editItemButton);
             item.Controls.Add(itemName);
+            item.Controls.Add(itemPrice);
             item.Controls.Add(image);
+            item.Location = new Point(3, 3);
+            item.Name = "item";
+            item.Size = new Size(100, 135);
+            item.TabIndex = 1;
+            item.Tag = new ItemEmbeddedData { id = _id };
+            item.Controls.Add(line);
             itemContainer.Controls.Add(item);
-            //image.Click += AddItemToCart_Click;
         }
 
+        //This adds the item to the database
         private void addItemToInventoryButton_Click(object sender, EventArgs e)
         {
             if (itemNameInput.Text == null) return;
@@ -110,6 +142,7 @@ namespace ITEC103_Finals
             MessageBox.Show("Succesfully Added New Item");
         }
 
+        //Allow user to select an image for their item
         private void selectImageButton_Click(object sender, EventArgs e)
         {
             string imageLocation = "";
@@ -128,6 +161,29 @@ namespace ITEC103_Finals
             {
                 MessageBox.Show("An error has occured");
             }
+        }
+
+        //Delete the item from the database
+        public void DeleteItem(object sender, EventArgs e)
+        {
+            int itemId = ItemHandler.GetItemId(sender);
+            bool isDeletionSuccessful = DatabaseHandler.DeleteItemFromInventory(itemId);
+            if (isDeletionSuccessful)
+            {
+                Control deleteButton = sender as Control;
+                Control item = deleteButton.Parent;
+                itemContainer.Controls.Remove(item);
+                MessageBox.Show("Item Seccesfully Deleted");
+            } else
+            {
+                MessageBox.Show("Item failed to delete!");
+            }
+        }
+
+        //Edit the item's information
+        public void EditItem(object sender, EventArgs e)
+        {
+
         }
 
         //Generate new id

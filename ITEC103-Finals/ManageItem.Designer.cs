@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageItem));
             panel1 = new Panel();
             backButtonIcon = new PictureBox();
             label = new Label();
@@ -41,6 +42,13 @@
             label1 = new Label();
             itemPriceInput = new TextBox();
             itemContainer = new FlowLayoutPanel();
+            item1 = new Panel();
+            deleteItemButton = new PictureBox();
+            editItemButton = new PictureBox();
+            line = new Label();
+            item1Name = new Label();
+            itemPrice = new Label();
+            item1Image = new PictureBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)backButtonIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -49,6 +57,11 @@
             splitContainer1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemImage).BeginInit();
+            itemContainer.SuspendLayout();
+            item1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)deleteItemButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)editItemButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)item1Image).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -200,11 +213,92 @@
             // 
             // itemContainer
             // 
+            itemContainer.Controls.Add(item1);
             itemContainer.Dock = DockStyle.Fill;
             itemContainer.Location = new Point(0, 0);
             itemContainer.Name = "itemContainer";
             itemContainer.Size = new Size(530, 405);
             itemContainer.TabIndex = 0;
+            // 
+            // item1
+            // 
+            item1.BorderStyle = BorderStyle.FixedSingle;
+            item1.Controls.Add(deleteItemButton);
+            item1.Controls.Add(editItemButton);
+            item1.Controls.Add(line);
+            item1.Controls.Add(item1Name);
+            item1.Controls.Add(itemPrice);
+            item1.Controls.Add(item1Image);
+            item1.Location = new Point(3, 3);
+            item1.Name = "item1";
+            item1.Size = new Size(100, 135);
+            item1.TabIndex = 1;
+            // 
+            // deleteItemButton
+            // 
+            deleteItemButton.Image = Properties.Resources.delete;
+            deleteItemButton.Location = new Point(63, 109);
+            deleteItemButton.Name = "deleteItemButton";
+            deleteItemButton.Size = new Size(20, 20);
+            deleteItemButton.SizeMode = PictureBoxSizeMode.Zoom;
+            deleteItemButton.TabIndex = 5;
+            deleteItemButton.TabStop = false;
+            // 
+            // editItemButton
+            // 
+            editItemButton.Image = Properties.Resources.pen;
+            editItemButton.Location = new Point(15, 109);
+            editItemButton.Name = "editItemButton";
+            editItemButton.Size = new Size(20, 20);
+            editItemButton.SizeMode = PictureBoxSizeMode.Zoom;
+            editItemButton.TabIndex = 4;
+            editItemButton.TabStop = false;
+            // 
+            // line
+            // 
+            line.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            line.BackColor = Color.Black;
+            line.BorderStyle = BorderStyle.Fixed3D;
+            line.Location = new Point(4, 98);
+            line.Name = "line";
+            line.Size = new Size(93, 2);
+            line.TabIndex = 3;
+            // 
+            // item1Name
+            // 
+            item1Name.AutoSize = true;
+            item1Name.BackColor = Color.Transparent;
+            item1Name.ForeColor = Color.Black;
+            item1Name.Location = new Point(0, 68);
+            item1Name.MaximumSize = new Size(100, 0);
+            item1Name.MinimumSize = new Size(100, 0);
+            item1Name.Name = "item1Name";
+            item1Name.Size = new Size(100, 30);
+            item1Name.TabIndex = 1;
+            item1Name.Text = "Caramel Machiato L";
+            item1Name.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // itemPrice
+            // 
+            itemPrice.AutoSize = true;
+            itemPrice.Dock = DockStyle.Top;
+            itemPrice.Location = new Point(0, 0);
+            itemPrice.Name = "itemPrice";
+            itemPrice.Size = new Size(26, 15);
+            itemPrice.TabIndex = 2;
+            itemPrice.Text = "P20";
+            // 
+            // item1Image
+            // 
+            item1Image.BackColor = Color.Transparent;
+            item1Image.BackgroundImageLayout = ImageLayout.Center;
+            item1Image.Image = (Image)resources.GetObject("item1Image.Image");
+            item1Image.Location = new Point(2, 2);
+            item1Image.Name = "item1Image";
+            item1Image.Size = new Size(95, 80);
+            item1Image.SizeMode = PictureBoxSizeMode.Zoom;
+            item1Image.TabIndex = 0;
+            item1Image.TabStop = false;
             // 
             // ManageItem
             // 
@@ -227,6 +321,12 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)itemImage).EndInit();
+            itemContainer.ResumeLayout(false);
+            item1.ResumeLayout(false);
+            item1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)deleteItemButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)editItemButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)item1Image).EndInit();
             ResumeLayout(false);
         }
 
@@ -245,5 +345,12 @@
         private Button addItemToInventoryButton;
         private Panel panel2;
         private FlowLayoutPanel itemContainer;
+        private Panel item1;
+        private Label item1Name;
+        private Label itemPrice;
+        private PictureBox item1Image;
+        private Label line;
+        private PictureBox deleteItemButton;
+        private PictureBox editItemButton;
     }
 }
