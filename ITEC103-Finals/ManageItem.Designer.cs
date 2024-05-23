@@ -35,6 +35,7 @@
             splitContainer1 = new SplitContainer();
             panel2 = new Panel();
             addItemToInventoryButton = new Button();
+            updateItemInfo = new Button();
             itemImage = new PictureBox();
             selectImageButton = new Button();
             itemNameInput = new TextBox();
@@ -120,6 +121,7 @@
             // 
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(addItemToInventoryButton);
+            panel2.Controls.Add(updateItemInfo);
             panel2.Controls.Add(itemImage);
             panel2.Controls.Add(selectImageButton);
             panel2.Controls.Add(itemNameInput);
@@ -139,13 +141,29 @@
             addItemToInventoryButton.FlatStyle = FlatStyle.Flat;
             addItemToInventoryButton.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             addItemToInventoryButton.ForeColor = Color.Black;
-            addItemToInventoryButton.Location = new Point(36, 355);
+            addItemToInventoryButton.Location = new Point(36, 354);
             addItemToInventoryButton.Name = "addItemToInventoryButton";
             addItemToInventoryButton.Size = new Size(202, 38);
             addItemToInventoryButton.TabIndex = 6;
             addItemToInventoryButton.Text = "ADD ITEM";
             addItemToInventoryButton.UseVisualStyleBackColor = false;
             addItemToInventoryButton.Click += addItemToInventoryButton_Click;
+            // 
+            // updateItemInfo
+            // 
+            updateItemInfo.BackColor = Color.FromArgb(3, 174, 210);
+            updateItemInfo.BackgroundImageLayout = ImageLayout.None;
+            updateItemInfo.FlatStyle = FlatStyle.Flat;
+            updateItemInfo.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            updateItemInfo.ForeColor = Color.Black;
+            updateItemInfo.Location = new Point(36, 354);
+            updateItemInfo.Name = "updateItemInfo";
+            updateItemInfo.Size = new Size(202, 38);
+            updateItemInfo.TabIndex = 7;
+            updateItemInfo.Text = "UPDATE";
+            updateItemInfo.UseVisualStyleBackColor = false;
+            updateItemInfo.Visible = false;
+            updateItemInfo.Click += updateItemInfo_Click;
             // 
             // itemImage
             // 
@@ -352,5 +370,6 @@
         private Label line;
         private PictureBox deleteItemButton;
         private PictureBox editItemButton;
+        private Button updateItemInfo;
     }
 }

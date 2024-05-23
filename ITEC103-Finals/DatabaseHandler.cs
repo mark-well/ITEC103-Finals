@@ -85,5 +85,29 @@ namespace ITEC103_Finals
                 MessageBox.Show("An error occured while connecting to the database" + err);
             }
         }
+
+        public static bool UpdateItemFromInventory(int id, string itemName, int itemPrice, byte[] imageByte)
+        {
+            //Opens the connection to the database
+            if (ConnectionState.Closed == connection.State) connection.Open();
+
+            try
+            {
+                string deleteQuery = $"UPDATE item SET itemName = @newItemName, itemPrice = @newItemPrice, itemImage = @newItemImage WHERE id = {id};";
+                MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+                command.Parameters.AddWithValue("@newItemName", itemName);
+                command.Parameters.AddWithValue("@newItemPrice", itemPrice);
+                command.Parameters.AddWithValue("@newItemImage", imageByte);
+                command.ExecuteNonQuery();;
+                connection.Close();
+
+                return true;
+            }
+            catch (Exception err)
+            {
+                return false;
+                MessageBox.Show("An error occured while connecting to the database" + err);
+            }
+        }
     }
 }

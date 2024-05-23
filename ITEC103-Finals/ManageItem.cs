@@ -83,15 +83,15 @@ namespace ITEC103_Finals
             itemName.TabIndex = 1;
             itemName.Text = name;
             itemName.TextAlign = ContentAlignment.MiddleCenter;
-            
+
             Label itemPrice = new Label();
             itemPrice.AutoSize = true;
             itemPrice.Dock = DockStyle.Top;
             itemPrice.Location = new Point(0, 0);
-            itemPrice.Name = price.ToString();
+            itemPrice.Name = "itemPrice";
             itemPrice.Size = new Size(26, 15);
             itemPrice.TabIndex = 2;
-            itemPrice.Text = price.ToString();
+            itemPrice.Text = "P" + price.ToString();
 
             PictureBox image = new PictureBox();
             image.BackColor = Color.Transparent;
@@ -135,7 +135,7 @@ namespace ITEC103_Finals
 
             //Add new item to database
             DatabaseHandler.AddNewItemToInventory(id, itemName, itemPrice, compressedImage);
-            AddNewItem(id, itemName, itemPrice,itemImageIn);
+            AddNewItem(id, itemName, itemPrice, itemImageIn);
             itemNameInput.Text = "";
             itemPriceInput.Text = "";
             itemImage.Image = null;
@@ -166,24 +166,66 @@ namespace ITEC103_Finals
         //Delete the item from the database
         public void DeleteItem(object sender, EventArgs e)
         {
+            var confirmationDialog = MessageBox.Show("Are you sure you want to delete the item?", "Confirm Deletion!", MessageBoxButtons.YesNo);
+            if (confirmationDialog == DialogResult.No) return;
+
+            //Remove from the database
             int itemId = ItemHandler.GetItemId(sender);
             bool isDeletionSuccessful = DatabaseHandler.DeleteItemFromInventory(itemId);
             if (isDeletionSuccessful)
             {
+                //Remove from the display
                 Control deleteButton = sender as Control;
                 Control item = deleteButton.Parent;
                 itemContainer.Controls.Remove(item);
+                item.Dispose();
                 MessageBox.Show("Item Seccesfully Deleted");
-            } else
+            }
+            else
             {
                 MessageBox.Show("Item failed to delete!");
             }
         }
 
+        Control itemToUpdate;
         //Edit the item's information
         public void EditItem(object sender, EventArgs e)
         {
+            Control editButton = sender as Control;
+            Control item = editButton.Parent;
+            PictureBox image = item.Controls["itemImage"] as PictureBox;
+            Control name = item.Controls["itemName"];
+            Control price = item.Controls["itemPrice"];
+            itemToUpdate = item;
 
+            itemImage.Image = image.Image;
+            itemNameInput.Text = name.Text;
+            itemPriceInput.Text = price.Text.Substring(1, price.Text.Length-1);
+            updateItemInfo.Visible = true;
+            addItemToInventoryButton.Visible = false;    
+        }
+
+        //Push an item update
+        private void updateItemInfo_Click(object sender, EventArgs e)
+        {
+            ItemEmbeddedData tag = itemToUpdate.Tag as ItemEmbeddedData;
+            int itemId = tag.id;
+            string name = itemNameInput.Text;
+            int price = Convert.ToInt32(itemPriceInput.Text.Substring(1, itemPriceInput.Text.Length-1));
+            Image image = itemImage.Image;
+            byte[] imageByte = ImageProccessor.ConvertImageToByteArray(image);
+            bool updateSuccesful = DatabaseHandler.UpdateItemFromInventory(itemId, name, price, imageByte);
+            if (!updateSuccesful) MessageBox.Show("An error occured while updating item");
+
+            itemContainer.Controls.Remove(itemToUpdate);
+            itemToUpdate.Dispose();
+
+            AddNewItem(itemId, name, price, image);
+            itemImage.Image = null;
+            itemNameInput.Text = "";
+            itemPriceInput.Text = "";
+            updateItemInfo.Visible = false;
+            addItemToInventoryButton.Visible = true;
         }
 
         //Generate new id
@@ -211,5 +253,6 @@ namespace ITEC103_Finals
             mainForm.Show();
             this.Hide();
         }
+
     }
 }
