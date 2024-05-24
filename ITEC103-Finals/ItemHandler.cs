@@ -20,18 +20,19 @@ namespace ITEC103_Finals
         }
     }
 
-    public struct Item
+    public class CartItem
     {
         public int id;
         public string itemName;
         public int itemPrice;
+        public int quantity;
 
-        public Item(string name, int price)
+        public CartItem(int _id, string name, int price)
         {
-            Random rand = new Random();
             itemName = name;
             itemPrice = price;
-            id = rand.Next(1000, 10000);
+            id = _id;
+            quantity = 1;
         }
     }
 

@@ -16,5 +16,27 @@ namespace ITEC103_Finals
         {
             InitializeComponent();
         }
+
+        private void backButtonIcon_Click(object sender, EventArgs e)
+        {
+            Main mainForm = new Main();
+            mainForm.Show();
+            this.Hide();
+        }
+
+        private void preCash300_Click(object sender, EventArgs e)
+        {
+            cashInput.Text = "300";
+        }
+
+        private void preCash500_Click(object sender, EventArgs e)
+        {
+            cashInput.Text = "500";
+        }
+
+        private void preCash1000_Click(object sender, EventArgs e)
+        {
+            cashInput.Text = "1000";
+        }
     }
 }

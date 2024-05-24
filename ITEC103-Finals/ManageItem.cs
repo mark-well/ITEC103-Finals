@@ -39,10 +39,6 @@ namespace ITEC103_Finals
 
         private void AddNewItem(int _id, string name, int price, Image itemImage)
         {
-            int panelSize = 100;
-            int imageWidth = 95;
-            int imageHeight = 80;
-
             PictureBox deleteItemButton = new PictureBox();
             deleteItemButton.Image = Properties.Resources.delete;
             deleteItemButton.Location = new Point(63, 109);
@@ -106,6 +102,7 @@ namespace ITEC103_Finals
 
             Panel item = new Panel();
             item.BorderStyle = BorderStyle.FixedSingle;
+            item.BackColor = Color.White;
             item.Controls.Add(deleteItemButton);
             item.Controls.Add(editItemButton);
             item.Controls.Add(itemName);
@@ -211,7 +208,7 @@ namespace ITEC103_Finals
             ItemEmbeddedData tag = itemToUpdate.Tag as ItemEmbeddedData;
             int itemId = tag.id;
             string name = itemNameInput.Text;
-            int price = Convert.ToInt32(itemPriceInput.Text.Substring(1, itemPriceInput.Text.Length-1));
+            int price = Convert.ToInt32(itemPriceInput.Text);
             Image image = itemImage.Image;
             byte[] imageByte = ImageProccessor.ConvertImageToByteArray(image);
             bool updateSuccesful = DatabaseHandler.UpdateItemFromInventory(itemId, name, price, imageByte);

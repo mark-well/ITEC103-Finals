@@ -40,12 +40,12 @@
             panel2 = new Panel();
             cartDisplay = new FlowLayoutPanel();
             cartItem = new Panel();
+            removeCartFromItemButton = new PictureBox();
             dicreaseQuantity = new PictureBox();
             increaseQuantity = new PictureBox();
             quantity = new Label();
             itemName = new Label();
             chargeButton = new Button();
-            line = new Label();
             label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
@@ -55,13 +55,14 @@
             panel2.SuspendLayout();
             cartDisplay.SuspendLayout();
             cartItem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)removeCartFromItemButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dicreaseQuantity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)increaseQuantity).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(3, 174, 210);
+            panel1.BackColor = Color.FromArgb(5, 107, 241);
             panel1.Controls.Add(menuButton);
             panel1.Controls.Add(appName);
             panel1.Dock = DockStyle.Top;
@@ -96,7 +97,7 @@
             // itemContainer
             // 
             itemContainer.AutoScroll = true;
-            itemContainer.BackColor = Color.FromArgb(223, 223, 223);
+            itemContainer.BackColor = Color.White;
             itemContainer.BorderStyle = BorderStyle.FixedSingle;
             itemContainer.Controls.Add(item1);
             itemContainer.Dock = DockStyle.Fill;
@@ -115,6 +116,7 @@
             item1.Name = "item1";
             item1.Size = new Size(100, 100);
             item1.TabIndex = 0;
+            item1.Visible = false;
             // 
             // item1Name
             // 
@@ -155,10 +157,9 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(2, 139, 168);
+            panel2.BackColor = Color.FromArgb(4, 89, 201);
             panel2.Controls.Add(cartDisplay);
             panel2.Controls.Add(chargeButton);
-            panel2.Controls.Add(line);
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Right;
             panel2.Location = new Point(570, 45);
@@ -170,17 +171,19 @@
             // 
             cartDisplay.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cartDisplay.AutoScroll = true;
+            cartDisplay.BackColor = Color.White;
             cartDisplay.Controls.Add(cartItem);
             cartDisplay.FlowDirection = FlowDirection.TopDown;
             cartDisplay.Location = new Point(0, 24);
             cartDisplay.Name = "cartDisplay";
-            cartDisplay.Size = new Size(200, 311);
+            cartDisplay.Size = new Size(200, 324);
             cartDisplay.TabIndex = 4;
             cartDisplay.WrapContents = false;
             // 
             // cartItem
             // 
-            cartItem.BackColor = Color.FromArgb(3, 174, 210);
+            cartItem.BackColor = Color.White;
+            cartItem.Controls.Add(removeCartFromItemButton);
             cartItem.Controls.Add(dicreaseQuantity);
             cartItem.Controls.Add(increaseQuantity);
             cartItem.Controls.Add(quantity);
@@ -191,6 +194,18 @@
             cartItem.Name = "cartItem";
             cartItem.Size = new Size(200, 50);
             cartItem.TabIndex = 0;
+            cartItem.Visible = false;
+            // 
+            // removeCartFromItemButton
+            // 
+            removeCartFromItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            removeCartFromItemButton.Image = Properties.Resources.delete;
+            removeCartFromItemButton.Location = new Point(177, 16);
+            removeCartFromItemButton.Name = "removeCartFromItemButton";
+            removeCartFromItemButton.Size = new Size(20, 20);
+            removeCartFromItemButton.SizeMode = PictureBoxSizeMode.Zoom;
+            removeCartFromItemButton.TabIndex = 4;
+            removeCartFromItemButton.TabStop = false;
             // 
             // dicreaseQuantity
             // 
@@ -207,7 +222,7 @@
             // 
             increaseQuantity.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             increaseQuantity.Image = Properties.Resources.plus;
-            increaseQuantity.Location = new Point(162, 16);
+            increaseQuantity.Location = new Point(144, 16);
             increaseQuantity.Name = "increaseQuantity";
             increaseQuantity.Size = new Size(20, 20);
             increaseQuantity.SizeMode = PictureBoxSizeMode.Zoom;
@@ -219,8 +234,8 @@
             quantity.AutoSize = true;
             quantity.BackColor = Color.Transparent;
             quantity.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            quantity.ForeColor = Color.White;
-            quantity.Location = new Point(130, 10);
+            quantity.ForeColor = Color.Black;
+            quantity.Location = new Point(121, 10);
             quantity.MaximumSize = new Size(30, 100);
             quantity.MinimumSize = new Size(20, 30);
             quantity.Name = "quantity";
@@ -235,8 +250,8 @@
             // 
             itemName.AutoSize = true;
             itemName.BackColor = Color.Transparent;
-            itemName.Font = new Font("Arial Narrow", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            itemName.ForeColor = Color.White;
+            itemName.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            itemName.ForeColor = Color.Black;
             itemName.Location = new Point(5, 0);
             itemName.MaximumSize = new Size(100, 100);
             itemName.MinimumSize = new Size(90, 50);
@@ -250,7 +265,7 @@
             // chargeButton
             // 
             chargeButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            chargeButton.BackColor = Color.FromArgb(3, 174, 210);
+            chargeButton.BackColor = Color.FromArgb(59, 140, 247);
             chargeButton.BackgroundImageLayout = ImageLayout.None;
             chargeButton.FlatAppearance.BorderSize = 0;
             chargeButton.FlatStyle = FlatStyle.Flat;
@@ -262,19 +277,12 @@
             chargeButton.TabIndex = 2;
             chargeButton.Text = "CHARGE";
             chargeButton.UseVisualStyleBackColor = false;
-            // 
-            // line
-            // 
-            line.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            line.BorderStyle = BorderStyle.Fixed3D;
-            line.Location = new Point(0, 338);
-            line.Name = "line";
-            line.Size = new Size(200, 2);
-            line.TabIndex = 1;
+            chargeButton.Click += chargeButton_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.FromArgb(4, 89, 201);
             label1.Dock = DockStyle.Top;
             label1.Font = new Font("Arial Rounded MT Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
@@ -308,6 +316,7 @@
             cartDisplay.ResumeLayout(false);
             cartItem.ResumeLayout(false);
             cartItem.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)removeCartFromItemButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)dicreaseQuantity).EndInit();
             ((System.ComponentModel.ISupportInitialize)increaseQuantity).EndInit();
             ResumeLayout(false);
@@ -323,7 +332,6 @@
         private Label itemPrice;
         private Panel panel2;
         private Label label1;
-        private Label line;
         private Button chargeButton;
         private FlowLayoutPanel cartDisplay;
         private Panel cartItem;
@@ -332,5 +340,6 @@
         private PictureBox increaseQuantity;
         private PictureBox dicreaseQuantity;
         private PictureBox menuButton;
+        private PictureBox removeCartFromItemButton;
     }
 }
