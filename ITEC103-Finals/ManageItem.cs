@@ -133,7 +133,15 @@ namespace MicroPOS
 
             int id = GenerateNewId();
             string itemName = itemNameInput.Text;
-            int itemPrice = Convert.ToInt32(itemPriceInput.Text);
+            int itemPrice = 0;
+            try
+            {
+                itemPrice = int.Parse(itemPriceInput.Text);
+            }catch (Exception ex)
+            {
+                MessageBox.Show("Enter a valid number");
+                return;
+            }
             Image itemImageIn = itemImage.Image;
             byte[] compressedImage = ImageProccessor.ConvertImageToByteArray(itemImageIn);
 

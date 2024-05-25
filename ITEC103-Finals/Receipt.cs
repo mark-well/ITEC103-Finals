@@ -54,7 +54,7 @@ namespace MicroPOS
 
                 e.Graphics.DrawString(item.itemName, new Font("Arial", smallFont, FontStyle.Regular), Brushes.Black, new Point(20, yPos));
                 e.Graphics.DrawString($"{item.quantity}x", new Font("Arial", smallFont, FontStyle.Regular), Brushes.Black, new Point(paperWidth - 115, yPos));
-                e.Graphics.DrawString($"P{item.itemPrice}", new Font("Arial", smallFont, FontStyle.Regular), Brushes.Black, new Point(paperWidth - GetTextWidth("P25", smallFont) - 30, yPos));
+                e.Graphics.DrawString($"P{item.itemPrice * item.quantity}", new Font("Arial", smallFont, FontStyle.Regular), Brushes.Black, new Point(paperWidth - GetTextWidth("P25", smallFont) - 30, yPos));
             }
 
             //=== FOOTER ===

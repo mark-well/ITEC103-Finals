@@ -229,6 +229,7 @@
             // 
             // itemContainer
             // 
+            itemContainer.AutoScroll = true;
             itemContainer.Controls.Add(item1);
             itemContainer.Dock = DockStyle.Fill;
             itemContainer.Location = new Point(0, 0);

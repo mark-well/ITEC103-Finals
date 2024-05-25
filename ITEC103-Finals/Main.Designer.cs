@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel1 = new Panel();
+            searchBar = new TextBox();
             menuButton = new PictureBox();
             appName = new Label();
             itemContainer = new FlowLayoutPanel();
@@ -63,6 +64,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(5, 107, 241);
+            panel1.Controls.Add(searchBar);
             panel1.Controls.Add(menuButton);
             panel1.Controls.Add(appName);
             panel1.Dock = DockStyle.Top;
@@ -71,9 +73,26 @@
             panel1.Size = new Size(770, 45);
             panel1.TabIndex = 0;
             // 
+            // searchBar
+            // 
+            searchBar.BackColor = Color.SkyBlue;
+            searchBar.BorderStyle = BorderStyle.None;
+            searchBar.Cursor = Cursors.IBeam;
+            searchBar.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            searchBar.ForeColor = Color.DimGray;
+            searchBar.Location = new Point(480, 13);
+            searchBar.MaximumSize = new Size(230, 20);
+            searchBar.MinimumSize = new Size(230, 20);
+            searchBar.Name = "searchBar";
+            searchBar.PlaceholderText = "SEARCH";
+            searchBar.Size = new Size(230, 20);
+            searchBar.TabIndex = 3;
+            searchBar.TextChanged += searchBar_TextChanged;
+            // 
             // menuButton
             // 
             menuButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            menuButton.Cursor = Cursors.Hand;
             menuButton.Image = Properties.Resources.hamburger_menu;
             menuButton.Location = new Point(725, 0);
             menuButton.Name = "menuButton";
@@ -343,5 +362,6 @@
         private PictureBox dicreaseQuantity;
         private PictureBox menuButton;
         private PictureBox removeCartFromItemButton;
+        private TextBox searchBar;
     }
 }

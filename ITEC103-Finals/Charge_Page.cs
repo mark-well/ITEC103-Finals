@@ -155,6 +155,7 @@ namespace MicroPOS
             Cart.items.Clear();
             orderDisplay.Controls.Clear();
             cashInput.Text = "";
+            subTotal.Text = "P0";
 
         }
 

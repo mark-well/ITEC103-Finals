@@ -123,5 +123,31 @@ namespace MicroPOS
                 MessageBox.Show("An error occured while connecting to the database" + err);
             }
         }
+
+        public static DataTable SearchItem(string searchTerm)
+        {
+            //Opens the connection to the database
+            if (!OpenConnection()) return new DataTable();
+
+            DataTable data = new DataTable();
+            try
+            {
+                string queryString = "SELECT * FROM item WHERE itemName LIKE @searchTerm";
+                MySqlCommand command = new MySqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@searchTerm", "%" + searchTerm + "%");
+                using (MySqlDataAdapter sda = new MySqlDataAdapter(command))
+                {
+                    sda.Fill(data);
+                }
+                connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("An error occured while connecting to the database" + err);
+
+            }
+
+            return data;
+        }
     }
 }

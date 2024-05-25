@@ -214,11 +214,29 @@ namespace MicroPOS
             if (Cart.items.Count == 0)
             {
                 MessageBox.Show("Add a product first");
-            } else
+            }
+            else
             {
                 Charge_Page chargePage = new Charge_Page();
                 chargePage.Show();
                 this.Hide();
+            }
+        }
+
+        private void searchBar_TextChanged(object sender, EventArgs e)
+        {
+            itemContainer.Controls.Clear();
+            DataTable allItems =  DatabaseHandler.SearchItem(searchBar.Text);
+            foreach (DataRow row in allItems.Rows)
+            {
+                int id = Convert.ToInt32(row["id"]);
+                string itemName = Convert.ToString(row["itemName"]);
+                int itemPrice = Convert.ToInt32(row["itemPrice"]);
+                byte[] itemImageByteData = (byte[])row["itemImage"];
+                Image itemImage = ImageProccessor.ConvertByteArrayToImage(itemImageByteData);
+
+                //Add the item to the display
+                AddNewItem(id, itemName, itemPrice, itemImage);
             }
         }
     }
