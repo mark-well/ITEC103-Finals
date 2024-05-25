@@ -1,4 +1,4 @@
-﻿namespace ITEC103_Finals
+﻿namespace MicroPOS
 {
     partial class Charge_Page
     {
@@ -425,7 +425,9 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             ForeColor = SystemColors.ButtonFace;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Charge_Page";
+            Text = "Charge";
             Load += Charge_Page_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

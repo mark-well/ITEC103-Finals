@@ -1,4 +1,4 @@
-﻿using ITEC103_Finals.Properties;
+﻿using MicroPOS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ITEC103_Finals
+namespace MicroPOS
 {
     public partial class ManageItem : Form
     {
@@ -22,7 +22,7 @@ namespace ITEC103_Finals
 
         private void ManageItem_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
+            //this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.Bounds = Screen.PrimaryScreen.Bounds;
 
@@ -44,7 +44,6 @@ namespace ITEC103_Finals
         private void AddNewItem(int _id, string name, int price, Image itemImage)
         {
             Button deleteItemButton = new Button();
-            deleteItemButton.BackColor = Color.FromArgb(255, 128, 128);
             deleteItemButton.Font = new Font("Arial Narrow", 8.25F);
             deleteItemButton.Location = new Point(52, 105);
             deleteItemButton.Name = "deleteItemButton";
@@ -52,10 +51,10 @@ namespace ITEC103_Finals
             deleteItemButton.TabIndex = 5;
             deleteItemButton.Text = "Delete";
             deleteItemButton.UseVisualStyleBackColor = true;
+            deleteItemButton.BackColor = Color.FromArgb(255, 128, 128);
             deleteItemButton.Click += DeleteItem;
 
             Button editItemButton = new Button();
-            editItemButton.BackColor = Color.FromArgb(59, 140, 247);
             editItemButton.Font = new Font("Arial Narrow", 8.25F);
             editItemButton.Location = new Point(4, 105);
             editItemButton.Name = "editItemButton";
@@ -63,6 +62,7 @@ namespace ITEC103_Finals
             editItemButton.TabIndex = 4;
             editItemButton.Text = "Edit";
             editItemButton.UseVisualStyleBackColor = true;
+            editItemButton.BackColor = Color.FromArgb(59, 140, 247);
             editItemButton.Click += EditItem;
 
             Label line = new Label();

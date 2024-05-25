@@ -1,7 +1,7 @@
 using System.Data;
 using System.Xml.Linq;
 
-namespace ITEC103_Finals
+namespace MicroPOS
 {
     public partial class Main : Form
     {
@@ -12,7 +12,7 @@ namespace ITEC103_Finals
 
         private void Main_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
+            //this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.Bounds = Screen.PrimaryScreen.Bounds;
 

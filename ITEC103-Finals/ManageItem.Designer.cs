@@ -1,4 +1,4 @@
-﻿namespace ITEC103_Finals
+﻿namespace MicroPOS
 {
     partial class ManageItem
     {
@@ -327,6 +327,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(splitContainer1);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ManageItem";
             Text = "ManageItem";
             Load += ManageItem_Load;

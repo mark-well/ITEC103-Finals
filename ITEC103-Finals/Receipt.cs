@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 
-namespace ITEC103_Finals
+namespace MicroPOS
 {
     public class Receipt
     {

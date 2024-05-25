@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ITEC103_Finals
+namespace MicroPOS
 {
     public partial class Charge_Page : Form
     {
@@ -24,7 +24,7 @@ namespace ITEC103_Finals
         //Page load
         private void Charge_Page_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
+            //this.WindowState = FormWindowState.Maximized;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.Bounds = Screen.PrimaryScreen.Bounds;
 

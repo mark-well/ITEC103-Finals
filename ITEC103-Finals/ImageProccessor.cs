@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITEC103_Finals
+namespace MicroPOS
 {
     public static class ImageProccessor
     {

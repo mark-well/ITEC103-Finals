@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
-namespace ITEC103_Finals
+namespace MicroPOS
 {
     public static class DatabaseHandler
     {

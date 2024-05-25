@@ -1,4 +1,4 @@
-namespace ITEC103_Finals
+namespace MicroPOS
 {
     internal static class Program
     {

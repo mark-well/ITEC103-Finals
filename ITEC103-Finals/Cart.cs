@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 
-namespace ITEC103_Finals
+namespace MicroPOS
 {
     public class Cart
     {

@@ -1,4 +1,4 @@
-﻿namespace ITEC103_Finals
+﻿namespace MicroPOS
 {
     partial class Main
     {
@@ -90,9 +90,9 @@
             appName.ForeColor = Color.White;
             appName.Location = new Point(27, 12);
             appName.Name = "appName";
-            appName.Size = new Size(124, 22);
+            appName.Size = new Size(102, 22);
             appName.TabIndex = 0;
-            appName.Text = "Point of Sale";
+            appName.Text = "MicroPOS";
             // 
             // itemContainer
             // 
@@ -302,7 +302,9 @@
             Controls.Add(itemContainer);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Main";
+            Text = "Main";
             Load += Main_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
