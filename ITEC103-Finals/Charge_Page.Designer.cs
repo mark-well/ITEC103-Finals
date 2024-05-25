@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Charge_Page));
             panel1 = new Panel();
             backButtonIcon = new PictureBox();
             label = new Label();
@@ -51,17 +52,21 @@
             chargeButton = new Button();
             newSaleButton = new Button();
             printReceiptButton = new PictureBox();
+            panel3 = new Panel();
+            receiptDocument = new System.Drawing.Printing.PrintDocument();
+            receiptPreviewDialog = new PrintPreviewDialog();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)backButtonIcon).BeginInit();
             panel2.SuspendLayout();
             orderDisplay.SuspendLayout();
             cartItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)printReceiptButton).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(3, 174, 210);
+            panel1.BackColor = Color.FromArgb(5, 107, 241);
             panel1.Controls.Add(backButtonIcon);
             panel1.Controls.Add(label);
             panel1.Dock = DockStyle.Top;
@@ -94,7 +99,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(2, 139, 168);
+            panel2.BackColor = Color.FromArgb(4, 89, 201);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(orderDisplay);
             panel2.Controls.Add(label4);
@@ -103,12 +108,13 @@
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 45);
             panel2.Name = "panel2";
-            panel2.Size = new Size(200, 405);
+            panel2.Size = new Size(210, 405);
             panel2.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.FromArgb(4, 89, 201);
             label1.Dock = DockStyle.Top;
             label1.Font = new Font("Arial Rounded MT Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
@@ -124,9 +130,10 @@
             // orderDisplay
             // 
             orderDisplay.AutoScroll = true;
+            orderDisplay.BackColor = Color.White;
             orderDisplay.Controls.Add(cartItem);
             orderDisplay.FlowDirection = FlowDirection.TopDown;
-            orderDisplay.Location = new Point(0, 64);
+            orderDisplay.Location = new Point(5, 64);
             orderDisplay.Name = "orderDisplay";
             orderDisplay.Size = new Size(200, 329);
             orderDisplay.TabIndex = 5;
@@ -134,7 +141,7 @@
             // 
             // cartItem
             // 
-            cartItem.BackColor = Color.FromArgb(3, 174, 210);
+            cartItem.BackColor = Color.White;
             cartItem.Controls.Add(price);
             cartItem.Controls.Add(quantity);
             cartItem.Controls.Add(itemName);
@@ -144,13 +151,14 @@
             cartItem.Name = "cartItem";
             cartItem.Size = new Size(200, 50);
             cartItem.TabIndex = 0;
+            cartItem.Visible = false;
             // 
             // price
             // 
             price.AutoSize = true;
             price.BackColor = Color.Transparent;
             price.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            price.ForeColor = Color.White;
+            price.ForeColor = Color.Black;
             price.Location = new Point(157, 11);
             price.MaximumSize = new Size(30, 100);
             price.MinimumSize = new Size(35, 30);
@@ -167,7 +175,7 @@
             quantity.AutoSize = true;
             quantity.BackColor = Color.Transparent;
             quantity.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            quantity.ForeColor = Color.White;
+            quantity.ForeColor = Color.Black;
             quantity.Location = new Point(101, 11);
             quantity.MaximumSize = new Size(30, 100);
             quantity.MinimumSize = new Size(20, 30);
@@ -175,7 +183,7 @@
             quantity.RightToLeft = RightToLeft.No;
             quantity.Size = new Size(20, 30);
             quantity.TabIndex = 1;
-            quantity.Text = "1";
+            quantity.Text = "1x";
             quantity.TextAlign = ContentAlignment.MiddleCenter;
             quantity.UseMnemonic = false;
             // 
@@ -183,8 +191,8 @@
             // 
             itemName.AutoSize = true;
             itemName.BackColor = Color.Transparent;
-            itemName.Font = new Font("Arial Narrow", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            itemName.ForeColor = Color.White;
+            itemName.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            itemName.ForeColor = Color.Black;
             itemName.Location = new Point(5, 0);
             itemName.MaximumSize = new Size(100, 100);
             itemName.MinimumSize = new Size(90, 50);
@@ -230,10 +238,11 @@
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.Black;
-            label5.Location = new Point(406, 141);
+            label5.Location = new Point(119, 87);
             label5.Name = "label5";
             label5.Size = new Size(79, 18);
             label5.TabIndex = 3;
@@ -241,21 +250,23 @@
             // 
             // subTotal
             // 
+            subTotal.Anchor = AnchorStyles.None;
             subTotal.AutoSize = true;
             subTotal.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             subTotal.ForeColor = Color.Black;
-            subTotal.Location = new Point(504, 142);
+            subTotal.Location = new Point(279, 89);
             subTotal.Name = "subTotal";
-            subTotal.Size = new Size(55, 16);
+            subTotal.Size = new Size(23, 16);
             subTotal.TabIndex = 4;
-            subTotal.Text = "P759.00";
+            subTotal.Text = "P0";
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
             label6.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.Black;
-            label6.Location = new Point(406, 173);
+            label6.Location = new Point(119, 116);
             label6.Name = "label6";
             label6.Size = new Size(48, 18);
             label6.TabIndex = 5;
@@ -263,27 +274,29 @@
             // 
             // cashInput
             // 
+            cashInput.Anchor = AnchorStyles.None;
             cashInput.BackColor = Color.White;
             cashInput.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cashInput.ForeColor = Color.Black;
-            cashInput.Location = new Point(460, 168);
+            cashInput.Location = new Point(173, 112);
             cashInput.Name = "cashInput";
-            cashInput.Size = new Size(180, 22);
+            cashInput.Size = new Size(251, 22);
             cashInput.TabIndex = 6;
             cashInput.TextAlign = HorizontalAlignment.Center;
+            cashInput.KeyPress += cashInput_KeyPress;
             // 
             // preCash500
             // 
-            preCash500.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            preCash500.BackColor = Color.FromArgb(2, 139, 168);
+            preCash500.Anchor = AnchorStyles.None;
+            preCash500.BackColor = Color.FromArgb(4, 89, 201);
             preCash500.BackgroundImageLayout = ImageLayout.None;
             preCash500.FlatAppearance.BorderSize = 0;
             preCash500.FlatStyle = FlatStyle.Flat;
             preCash500.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             preCash500.ForeColor = Color.White;
-            preCash500.Location = new Point(504, 208);
+            preCash500.Location = new Point(250, 140);
             preCash500.Name = "preCash500";
-            preCash500.Size = new Size(81, 24);
+            preCash500.Size = new Size(86, 24);
             preCash500.TabIndex = 7;
             preCash500.Text = "P500";
             preCash500.UseVisualStyleBackColor = false;
@@ -291,16 +304,16 @@
             // 
             // preCash300
             // 
-            preCash300.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            preCash300.BackColor = Color.FromArgb(2, 139, 168);
+            preCash300.Anchor = AnchorStyles.None;
+            preCash300.BackColor = Color.FromArgb(4, 89, 201);
             preCash300.BackgroundImageLayout = ImageLayout.None;
             preCash300.FlatAppearance.BorderSize = 0;
             preCash300.FlatStyle = FlatStyle.Flat;
             preCash300.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             preCash300.ForeColor = Color.White;
-            preCash300.Location = new Point(404, 208);
+            preCash300.Location = new Point(163, 140);
             preCash300.Name = "preCash300";
-            preCash300.Size = new Size(81, 24);
+            preCash300.Size = new Size(86, 24);
             preCash300.TabIndex = 8;
             preCash300.Text = "P300";
             preCash300.UseVisualStyleBackColor = false;
@@ -308,16 +321,16 @@
             // 
             // preCash1000
             // 
-            preCash1000.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            preCash1000.BackColor = Color.FromArgb(2, 139, 168);
+            preCash1000.Anchor = AnchorStyles.None;
+            preCash1000.BackColor = Color.FromArgb(4, 89, 201);
             preCash1000.BackgroundImageLayout = ImageLayout.None;
             preCash1000.FlatAppearance.BorderSize = 0;
             preCash1000.FlatStyle = FlatStyle.Flat;
             preCash1000.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             preCash1000.ForeColor = Color.White;
-            preCash1000.Location = new Point(604, 208);
+            preCash1000.Location = new Point(337, 140);
             preCash1000.Name = "preCash1000";
-            preCash1000.Size = new Size(81, 24);
+            preCash1000.Size = new Size(86, 24);
             preCash1000.TabIndex = 9;
             preCash1000.Text = "P1000";
             preCash1000.UseVisualStyleBackColor = false;
@@ -325,65 +338,95 @@
             // 
             // chargeButton
             // 
-            chargeButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            chargeButton.BackColor = Color.FromArgb(3, 174, 210);
+            chargeButton.Anchor = AnchorStyles.None;
+            chargeButton.BackColor = Color.FromArgb(59, 140, 247);
             chargeButton.BackgroundImageLayout = ImageLayout.None;
             chargeButton.FlatAppearance.BorderSize = 0;
             chargeButton.FlatStyle = FlatStyle.Flat;
             chargeButton.Font = new Font("Arial Narrow", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             chargeButton.ForeColor = Color.White;
-            chargeButton.Location = new Point(482, 256);
+            chargeButton.Location = new Point(233, 214);
             chargeButton.Name = "chargeButton";
             chargeButton.Size = new Size(117, 32);
             chargeButton.TabIndex = 10;
             chargeButton.Text = "CHARGE";
             chargeButton.UseVisualStyleBackColor = false;
+            chargeButton.Click += chargeButton_Click;
             // 
             // newSaleButton
             // 
-            newSaleButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            newSaleButton.BackColor = Color.FromArgb(3, 174, 210);
+            newSaleButton.Anchor = AnchorStyles.None;
+            newSaleButton.BackColor = Color.FromArgb(59, 140, 247);
             newSaleButton.BackgroundImageLayout = ImageLayout.None;
             newSaleButton.FlatAppearance.BorderSize = 0;
             newSaleButton.FlatStyle = FlatStyle.Flat;
             newSaleButton.Font = new Font("Arial Narrow", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             newSaleButton.ForeColor = Color.White;
-            newSaleButton.Location = new Point(394, 406);
+            newSaleButton.Location = new Point(168, 362);
             newSaleButton.Name = "newSaleButton";
-            newSaleButton.Size = new Size(246, 32);
+            newSaleButton.Size = new Size(255, 32);
             newSaleButton.TabIndex = 11;
             newSaleButton.Text = "New Sale";
             newSaleButton.UseVisualStyleBackColor = false;
+            newSaleButton.Click += newSaleButton_Click;
             // 
             // printReceiptButton
             // 
+            printReceiptButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             printReceiptButton.Image = Properties.Resources.printer_black;
-            printReceiptButton.Location = new Point(758, 51);
+            printReceiptButton.Location = new Point(547, 6);
             printReceiptButton.Name = "printReceiptButton";
-            printReceiptButton.Size = new Size(30, 30);
+            printReceiptButton.Size = new Size(25, 25);
             printReceiptButton.SizeMode = PictureBoxSizeMode.Zoom;
             printReceiptButton.TabIndex = 12;
             printReceiptButton.TabStop = false;
+            printReceiptButton.Click += printReceiptButton_Click;
+            // 
+            // panel3
+            // 
+            panel3.AutoSize = true;
+            panel3.Controls.Add(label5);
+            panel3.Controls.Add(chargeButton);
+            panel3.Controls.Add(newSaleButton);
+            panel3.Controls.Add(printReceiptButton);
+            panel3.Controls.Add(cashInput);
+            panel3.Controls.Add(label6);
+            panel3.Controls.Add(subTotal);
+            panel3.Controls.Add(preCash1000);
+            panel3.Controls.Add(preCash500);
+            panel3.Controls.Add(preCash300);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(210, 45);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(590, 405);
+            panel3.TabIndex = 13;
+            // 
+            // receiptDocument
+            // 
+            receiptDocument.PrintPage += receiptDocument_PrintPage;
+            // 
+            // receiptPreviewDialog
+            // 
+            receiptPreviewDialog.AutoScrollMargin = new Size(0, 0);
+            receiptPreviewDialog.AutoScrollMinSize = new Size(0, 0);
+            receiptPreviewDialog.ClientSize = new Size(400, 300);
+            receiptPreviewDialog.Enabled = true;
+            receiptPreviewDialog.Icon = (Icon)resources.GetObject("receiptPreviewDialog.Icon");
+            receiptPreviewDialog.Name = "receiptPreviewDialog";
+            receiptPreviewDialog.Visible = false;
             // 
             // Charge_Page
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(800, 450);
-            Controls.Add(printReceiptButton);
-            Controls.Add(newSaleButton);
-            Controls.Add(chargeButton);
-            Controls.Add(preCash1000);
-            Controls.Add(preCash300);
-            Controls.Add(preCash500);
-            Controls.Add(cashInput);
-            Controls.Add(label6);
-            Controls.Add(subTotal);
-            Controls.Add(label5);
+            Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
             ForeColor = SystemColors.ButtonFace;
             Name = "Charge_Page";
+            Load += Charge_Page_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)backButtonIcon).EndInit();
@@ -393,6 +436,8 @@
             cartItem.ResumeLayout(false);
             cartItem.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)printReceiptButton).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -422,5 +467,8 @@
         private Button newSaleButton;
         private Label label1;
         private PictureBox printReceiptButton;
+        private Panel panel3;
+        private System.Drawing.Printing.PrintDocument receiptDocument;
+        private PrintPreviewDialog receiptPreviewDialog;
     }
 }

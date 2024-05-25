@@ -95,7 +95,7 @@ namespace ITEC103_Finals
 
         public void NewCartItemDisplay(int id, string name, int _quantity)
         {
-            
+
             PictureBox dicreaseQuantity = new PictureBox();
             dicreaseQuantity.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dicreaseQuantity.Image = Properties.Resources.minus;
@@ -179,7 +179,7 @@ namespace ITEC103_Finals
 
             this.cartDisplay.Controls.Add(cartItem);
         }
-        
+
         public void increaseItemQuantity(object sender, EventArgs e)
         {
             int id = ItemHandler.GetItemId(sender);
@@ -207,9 +207,15 @@ namespace ITEC103_Finals
 
         private void chargeButton_Click(object sender, EventArgs e)
         {
-            Charge_Page chargePage = new Charge_Page();
-            chargePage.Show();
-            this.Hide();
+            if (Cart.items.Count == 0)
+            {
+                MessageBox.Show("Add a product first");
+            } else
+            {
+                Charge_Page chargePage = new Charge_Page();
+                chargePage.Show();
+                this.Hide();
+            }
         }
     }
 }

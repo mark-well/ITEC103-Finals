@@ -15,11 +15,25 @@ namespace ITEC103_Finals
         public static string connectionString = "Server=localhost;Database=pos_inventory;Uid=root;";
         public static MySqlConnection connection = new MySqlConnection(connectionString);
 
+        private static bool OpenConnection()
+        {
+            try
+            {
+                if (ConnectionState.Closed == connection.State) connection.Open();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot establish a connection to the database");
+                return false;
+            }
+        }
+
         //Load all the items from the database
         public static DataTable LoadItemsFromDatabase()
         {
             //Opens the connection to the database
-            if (ConnectionState.Closed == connection.State) connection.Open();
+            if (!OpenConnection()) return new DataTable();
 
             DataTable data = new DataTable();
             try
@@ -45,7 +59,7 @@ namespace ITEC103_Finals
         public static void AddNewItemToInventory(int id, string name, int price, byte[] image)
         {
             //Opens the connection to the database
-            if (ConnectionState.Closed == connection.State) connection.Open();
+            if (!OpenConnection()) return;
 
             try
             {
@@ -69,7 +83,7 @@ namespace ITEC103_Finals
         public static bool DeleteItemFromInventory(int id)
         {
             //Opens the connection to the database
-            if (ConnectionState.Closed == connection.State) connection.Open();
+            if (!OpenConnection()) return false;
 
             try
             {
@@ -89,7 +103,7 @@ namespace ITEC103_Finals
         public static bool UpdateItemFromInventory(int id, string itemName, int itemPrice, byte[] imageByte)
         {
             //Opens the connection to the database
-            if (ConnectionState.Closed == connection.State) connection.Open();
+            if (!OpenConnection()) return false;
 
             try
             {
