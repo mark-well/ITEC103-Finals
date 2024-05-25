@@ -44,8 +44,8 @@
             itemPriceInput = new TextBox();
             itemContainer = new FlowLayoutPanel();
             item1 = new Panel();
-            deleteItemButton = new PictureBox();
-            editItemButton = new PictureBox();
+            deleteItemButton = new Button();
+            editItemButton = new Button();
             line = new Label();
             item1Name = new Label();
             itemPrice = new Label();
@@ -60,14 +60,12 @@
             ((System.ComponentModel.ISupportInitialize)itemImage).BeginInit();
             itemContainer.SuspendLayout();
             item1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)deleteItemButton).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)editItemButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)item1Image).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(3, 174, 210);
+            panel1.BackColor = Color.FromArgb(5, 107, 241);
             panel1.Controls.Add(backButtonIcon);
             panel1.Controls.Add(label);
             panel1.Dock = DockStyle.Top;
@@ -136,7 +134,7 @@
             // 
             // addItemToInventoryButton
             // 
-            addItemToInventoryButton.BackColor = Color.FromArgb(3, 174, 210);
+            addItemToInventoryButton.BackColor = Color.FromArgb(59, 140, 247);
             addItemToInventoryButton.BackgroundImageLayout = ImageLayout.None;
             addItemToInventoryButton.FlatStyle = FlatStyle.Flat;
             addItemToInventoryButton.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -251,26 +249,29 @@
             item1.Name = "item1";
             item1.Size = new Size(100, 135);
             item1.TabIndex = 1;
+            item1.Visible = false;
             // 
             // deleteItemButton
             // 
-            deleteItemButton.Image = Properties.Resources.delete;
-            deleteItemButton.Location = new Point(63, 109);
+            deleteItemButton.BackColor = Color.FromArgb(255, 128, 128);
+            deleteItemButton.Font = new Font("Arial Narrow", 8.25F);
+            deleteItemButton.Location = new Point(52, 105);
             deleteItemButton.Name = "deleteItemButton";
-            deleteItemButton.Size = new Size(20, 20);
-            deleteItemButton.SizeMode = PictureBoxSizeMode.Zoom;
+            deleteItemButton.Size = new Size(43, 25);
             deleteItemButton.TabIndex = 5;
-            deleteItemButton.TabStop = false;
+            deleteItemButton.Text = "Delete";
+            deleteItemButton.UseVisualStyleBackColor = false;
             // 
             // editItemButton
             // 
-            editItemButton.Image = Properties.Resources.pen;
-            editItemButton.Location = new Point(15, 109);
+            editItemButton.BackColor = Color.FromArgb(59, 140, 247);
+            editItemButton.Font = new Font("Arial Narrow", 8.25F);
+            editItemButton.Location = new Point(4, 105);
             editItemButton.Name = "editItemButton";
-            editItemButton.Size = new Size(20, 20);
-            editItemButton.SizeMode = PictureBoxSizeMode.Zoom;
+            editItemButton.Size = new Size(42, 25);
             editItemButton.TabIndex = 4;
-            editItemButton.TabStop = false;
+            editItemButton.Text = "Edit";
+            editItemButton.UseVisualStyleBackColor = false;
             // 
             // line
             // 
@@ -342,8 +343,6 @@
             itemContainer.ResumeLayout(false);
             item1.ResumeLayout(false);
             item1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)deleteItemButton).EndInit();
-            ((System.ComponentModel.ISupportInitialize)editItemButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)item1Image).EndInit();
             ResumeLayout(false);
         }
@@ -368,8 +367,9 @@
         private Label itemPrice;
         private PictureBox item1Image;
         private Label line;
-        private PictureBox deleteItemButton;
-        private PictureBox editItemButton;
         private Button updateItemInfo;
+        private Button button1;
+        private Button deleteItemButton;
+        private Button editItemButton;
     }
 }

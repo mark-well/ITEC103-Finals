@@ -22,6 +22,10 @@ namespace ITEC103_Finals
 
         private void ManageItem_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            //this.Bounds = Screen.PrimaryScreen.Bounds;
+
             DataTable allItems = DatabaseHandler.LoadItemsFromDatabase();
             foreach (DataRow row in allItems.Rows)
             {
@@ -39,23 +43,26 @@ namespace ITEC103_Finals
 
         private void AddNewItem(int _id, string name, int price, Image itemImage)
         {
-            PictureBox deleteItemButton = new PictureBox();
-            deleteItemButton.Image = Properties.Resources.delete;
-            deleteItemButton.Location = new Point(63, 109);
+            Button deleteItemButton = new Button();
+            deleteItemButton.BackColor = Color.FromArgb(255, 128, 128);
+            deleteItemButton.Font = new Font("Arial Narrow", 8.25F);
+            deleteItemButton.Location = new Point(52, 105);
             deleteItemButton.Name = "deleteItemButton";
-            deleteItemButton.Size = new Size(20, 20);
-            deleteItemButton.SizeMode = PictureBoxSizeMode.Zoom;
+            deleteItemButton.Size = new Size(43, 25);
             deleteItemButton.TabIndex = 5;
+            deleteItemButton.Text = "Delete";
+            deleteItemButton.UseVisualStyleBackColor = true;
             deleteItemButton.Click += DeleteItem;
 
-            PictureBox editItemButton = new PictureBox();
-            editItemButton.Image = Properties.Resources.pen;
-            editItemButton.Location = new Point(15, 109);
+            Button editItemButton = new Button();
+            editItemButton.BackColor = Color.FromArgb(59, 140, 247);
+            editItemButton.Font = new Font("Arial Narrow", 8.25F);
+            editItemButton.Location = new Point(4, 105);
             editItemButton.Name = "editItemButton";
-            editItemButton.Size = new Size(20, 20);
-            editItemButton.SizeMode = PictureBoxSizeMode.Zoom;
+            editItemButton.Size = new Size(42, 25);
             editItemButton.TabIndex = 4;
-            editItemButton.TabStop = false;
+            editItemButton.Text = "Edit";
+            editItemButton.UseVisualStyleBackColor = true;
             editItemButton.Click += EditItem;
 
             Label line = new Label();
@@ -176,7 +183,11 @@ namespace ITEC103_Finals
                 Control item = deleteButton.Parent;
                 itemContainer.Controls.Remove(item);
                 item.Dispose();
-                MessageBox.Show("Item Seccesfully Deleted");
+                itemImage.Image = null;
+                itemNameInput.Text = "";
+                itemPriceInput.Text = "";
+                updateItemInfo.Visible = false;
+                addItemToInventoryButton.Visible = true;
             }
             else
             {
@@ -197,9 +208,9 @@ namespace ITEC103_Finals
 
             itemImage.Image = image.Image;
             itemNameInput.Text = name.Text;
-            itemPriceInput.Text = price.Text.Substring(1, price.Text.Length-1);
+            itemPriceInput.Text = price.Text.Substring(1, price.Text.Length - 1);
             updateItemInfo.Visible = true;
-            addItemToInventoryButton.Visible = false;    
+            addItemToInventoryButton.Visible = false;
         }
 
         //Push an item update
@@ -250,6 +261,5 @@ namespace ITEC103_Finals
             mainForm.Show();
             this.Hide();
         }
-
     }
 }

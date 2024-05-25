@@ -24,6 +24,10 @@ namespace ITEC103_Finals
         //Page load
         private void Charge_Page_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            //this.Bounds = Screen.PrimaryScreen.Bounds;
+
             LoadItemsToOrderDisplay();
         }
 
@@ -191,7 +195,7 @@ namespace ITEC103_Finals
 
         private void newSaleButton_Click(object sender, EventArgs e)
         {
-            if (Cart.items.Count == 0)
+            if (Cart.items.Count != 0)
             {
                 MessageBox.Show("Complete the transaction first");
             } else

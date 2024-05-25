@@ -12,6 +12,10 @@ namespace ITEC103_Finals
 
         private void Main_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            //this.Bounds = Screen.PrimaryScreen.Bounds;
+
             DataTable allItems = DatabaseHandler.LoadItemsFromDatabase();
             foreach (DataRow row in allItems.Rows)
             {
