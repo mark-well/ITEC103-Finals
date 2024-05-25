@@ -143,7 +143,6 @@ namespace MicroPOS
             itemNameInput.Text = "";
             itemPriceInput.Text = "";
             itemImage.Image = null;
-            MessageBox.Show("Succesfully Added New Item");
         }
 
         //Allow user to select an image for their item

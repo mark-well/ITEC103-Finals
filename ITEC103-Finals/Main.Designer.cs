@@ -86,11 +86,11 @@
             // appName
             // 
             appName.AutoSize = true;
-            appName.Font = new Font("Arial Rounded MT Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            appName.Font = new Font("Arial Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             appName.ForeColor = Color.White;
-            appName.Location = new Point(27, 12);
+            appName.Location = new Point(12, 9);
             appName.Name = "appName";
-            appName.Size = new Size(102, 22);
+            appName.Size = new Size(114, 27);
             appName.TabIndex = 0;
             appName.Text = "MicroPOS";
             // 
@@ -108,6 +108,7 @@
             // 
             // item1
             // 
+            item1.BackColor = Color.WhiteSmoke;
             item1.BorderStyle = BorderStyle.FixedSingle;
             item1.Controls.Add(item1Name);
             item1.Controls.Add(itemPrice);
@@ -174,9 +175,9 @@
             cartDisplay.BackColor = Color.White;
             cartDisplay.Controls.Add(cartItem);
             cartDisplay.FlowDirection = FlowDirection.TopDown;
-            cartDisplay.Location = new Point(0, 24);
+            cartDisplay.Location = new Point(0, 36);
             cartDisplay.Name = "cartDisplay";
-            cartDisplay.Size = new Size(200, 324);
+            cartDisplay.Size = new Size(200, 312);
             cartDisplay.TabIndex = 4;
             cartDisplay.WrapContents = false;
             // 
@@ -283,10 +284,9 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(4, 89, 201);
-            label1.Dock = DockStyle.Top;
-            label1.Font = new Font("Arial Rounded MT Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Arial", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(0, 0);
+            label1.Location = new Point(0, 7);
             label1.MaximumSize = new Size(200, 0);
             label1.MinimumSize = new Size(200, 0);
             label1.Name = "label1";

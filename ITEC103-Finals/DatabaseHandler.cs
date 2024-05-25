@@ -38,7 +38,7 @@ namespace MicroPOS
             DataTable data = new DataTable();
             try
             {
-                string queryString = "SELECT DISTINCT id, itemName, ItemPrice, itemImage FROM item";
+                string queryString = "SELECT DISTINCT id, itemName, ItemPrice, itemImage FROM item ORDER BY itemName";
                 MySqlCommand command = new MySqlCommand(queryString, connection);
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(command))
                 {

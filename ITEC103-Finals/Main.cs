@@ -42,7 +42,7 @@ namespace MicroPOS
             item.Size = new Size(panelSize, panelSize);
             item.BorderStyle = BorderStyle.FixedSingle;
             item.Name = _id.ToString();
-            item.BackColor = Color.White;
+            item.BackColor = Color.WhiteSmoke;
             item.Tag = new ItemEmbeddedData { id = _id };
 
             PictureBox image = new PictureBox();

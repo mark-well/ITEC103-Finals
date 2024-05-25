@@ -13,6 +13,7 @@ namespace MicroPOS
     {
         public static void GenerateReceipt(List<CartItem> items, int itemTotalPrice, int customerCash, int _exchange, PrintDocument receiptDocument, PrintPageEventArgs e)
         {
+            DateTime dateTime = DateTime.UtcNow.Date;
             int paperWidth = receiptDocument.DefaultPageSettings.PaperSize.Width;
             int paperHeight = receiptDocument.DefaultPageSettings.PaperSize.Height;
 
@@ -30,7 +31,7 @@ namespace MicroPOS
             string text3 = "Name";
             string text4 = "Qty.";
             string text5 = "Price";
-            string text6 = "Date: mm/dd/yyyy";
+            string text6 = $"Date: {dateTime.ToString("MM/dd/yyyy")}";
             string text7 = "Exchange:";
             string text8 = "Cash:";
             string text9 = "Sub total:";
