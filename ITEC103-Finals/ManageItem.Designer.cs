@@ -30,11 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageItem));
             panel1 = new Panel();
+            button1 = new Button();
             backButtonIcon = new PictureBox();
             label = new Label();
             categoryInput = new ComboBox();
             splitContainer1 = new SplitContainer();
-            panel2 = new Panel();
+            addItemCategoryButton = new Panel();
             label3 = new Label();
             addItemToInventoryButton = new Button();
             updateItemInfo = new Button();
@@ -52,13 +53,14 @@
             item1Name = new Label();
             itemPrice = new Label();
             item1Image = new PictureBox();
+            mySqlCommand1 = new MySql.Data.MySqlClient.MySqlCommand();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)backButtonIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            panel2.SuspendLayout();
+            addItemCategoryButton.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemImage).BeginInit();
             itemContainer.SuspendLayout();
             item1.SuspendLayout();
@@ -68,6 +70,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(5, 107, 241);
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(backButtonIcon);
             panel1.Controls.Add(label);
             panel1.Dock = DockStyle.Top;
@@ -75,6 +78,20 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(800, 45);
             panel1.TabIndex = 2;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(59, 140, 247);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(660, 9);
+            button1.Name = "button1";
+            button1.Size = new Size(128, 23);
+            button1.TabIndex = 2;
+            button1.Text = "Add item Category";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // backButtonIcon
             // 
@@ -102,7 +119,7 @@
             // 
             categoryInput.DropDownStyle = ComboBoxStyle.DropDownList;
             categoryInput.FormattingEnabled = true;
-            categoryInput.Items.AddRange(new object[] { "Beverages", "Food" });
+            categoryInput.Items.AddRange(new object[] { "all" });
             categoryInput.Location = new Point(57, 261);
             categoryInput.Name = "categoryInput";
             categoryInput.Size = new Size(151, 23);
@@ -117,7 +134,7 @@
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.BackColor = Color.White;
-            splitContainer1.Panel1.Controls.Add(panel2);
+            splitContainer1.Panel1.Controls.Add(addItemCategoryButton);
             // 
             // splitContainer1.Panel2
             // 
@@ -127,24 +144,24 @@
             splitContainer1.SplitterDistance = 266;
             splitContainer1.TabIndex = 3;
             // 
-            // panel2
+            // addItemCategoryButton
             // 
-            panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(categoryInput);
-            panel2.Controls.Add(label3);
-            panel2.Controls.Add(addItemToInventoryButton);
-            panel2.Controls.Add(updateItemInfo);
-            panel2.Controls.Add(itemImage);
-            panel2.Controls.Add(selectImageButton);
-            panel2.Controls.Add(itemNameInput);
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(label1);
-            panel2.Controls.Add(itemPriceInput);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(266, 405);
-            panel2.TabIndex = 0;
+            addItemCategoryButton.BorderStyle = BorderStyle.FixedSingle;
+            addItemCategoryButton.Controls.Add(categoryInput);
+            addItemCategoryButton.Controls.Add(label3);
+            addItemCategoryButton.Controls.Add(addItemToInventoryButton);
+            addItemCategoryButton.Controls.Add(updateItemInfo);
+            addItemCategoryButton.Controls.Add(itemImage);
+            addItemCategoryButton.Controls.Add(selectImageButton);
+            addItemCategoryButton.Controls.Add(itemNameInput);
+            addItemCategoryButton.Controls.Add(label2);
+            addItemCategoryButton.Controls.Add(label1);
+            addItemCategoryButton.Controls.Add(itemPriceInput);
+            addItemCategoryButton.Dock = DockStyle.Fill;
+            addItemCategoryButton.Location = new Point(0, 0);
+            addItemCategoryButton.Name = "addItemCategoryButton";
+            addItemCategoryButton.Size = new Size(266, 405);
+            addItemCategoryButton.TabIndex = 0;
             // 
             // label3
             // 
@@ -162,7 +179,7 @@
             addItemToInventoryButton.BackgroundImageLayout = ImageLayout.None;
             addItemToInventoryButton.FlatStyle = FlatStyle.Flat;
             addItemToInventoryButton.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            addItemToInventoryButton.ForeColor = Color.Black;
+            addItemToInventoryButton.ForeColor = Color.White;
             addItemToInventoryButton.Location = new Point(36, 354);
             addItemToInventoryButton.Name = "addItemToInventoryButton";
             addItemToInventoryButton.Size = new Size(202, 38);
@@ -173,11 +190,11 @@
             // 
             // updateItemInfo
             // 
-            updateItemInfo.BackColor = Color.FromArgb(3, 174, 210);
+            updateItemInfo.BackColor = Color.FromArgb(59, 140, 247);
             updateItemInfo.BackgroundImageLayout = ImageLayout.None;
             updateItemInfo.FlatStyle = FlatStyle.Flat;
             updateItemInfo.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            updateItemInfo.ForeColor = Color.Black;
+            updateItemInfo.ForeColor = Color.White;
             updateItemInfo.Location = new Point(36, 354);
             updateItemInfo.Name = "updateItemInfo";
             updateItemInfo.Size = new Size(202, 38);
@@ -344,6 +361,13 @@
             item1Image.TabIndex = 0;
             item1Image.TabStop = false;
             // 
+            // mySqlCommand1
+            // 
+            mySqlCommand1.CacheAge = 0;
+            mySqlCommand1.Connection = null;
+            mySqlCommand1.EnableCaching = false;
+            mySqlCommand1.Transaction = null;
+            // 
             // ManageItem
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -363,8 +387,8 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            addItemCategoryButton.ResumeLayout(false);
+            addItemCategoryButton.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)itemImage).EndInit();
             itemContainer.ResumeLayout(false);
             item1.ResumeLayout(false);
@@ -386,7 +410,7 @@
         private Label label1;
         private TextBox itemNameInput;
         private Button addItemToInventoryButton;
-        private Panel panel2;
+        private Panel addItemCategoryButton;
         private FlowLayoutPanel itemContainer;
         private Panel item1;
         private Label item1Name;
@@ -399,5 +423,6 @@
         private Button editItemButton;
         private Label label3;
         private ComboBox categoryInput;
+        private MySql.Data.MySqlClient.MySqlCommand mySqlCommand1;
     }
 }

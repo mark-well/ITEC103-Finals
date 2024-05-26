@@ -29,6 +29,31 @@ namespace MicroPOS
             }
         }
 
+        public static DataTable LoadCategories()
+        {
+            //Opens the connection to the database
+            if (!OpenConnection()) return new DataTable();
+
+            DataTable data = new DataTable();
+            try
+            {
+                string queryString = "SELECT DISTINCT * FROM categories ORDER BY category";
+                MySqlCommand command = new MySqlCommand(queryString, connection);
+                using (MySqlDataAdapter sda = new MySqlDataAdapter(command))
+                {
+                    sda.Fill(data);
+                }
+                connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("An error occured while connecting to the database" + err);
+
+            }
+
+            return data;
+        }
+
         //Load all the items from the database
         public static DataTable LoadItemsFromDatabase()
         {
@@ -101,6 +126,25 @@ namespace MicroPOS
             }
         }
 
+        public static void DeleteItemFromInventoryByCategory(string category)
+        {
+            //Opens the connection to the database
+            if (!OpenConnection()) return;
+
+            try
+            {
+                string deleteQuery = $"DELETE FROM `item` WHERE category = @category";
+                MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+                command.Parameters.AddWithValue("@category", category);
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("An error occured while connecting to the database" + err);
+            }
+        }
+
         public static bool UpdateItemFromInventory(int id, string itemName, int itemPrice, string category, byte[] imageByte)
         {
             //Opens the connection to the database
@@ -149,6 +193,79 @@ namespace MicroPOS
             }
 
             return data;
+        }
+        
+        public static DataTable FilterByCategory(string category)
+        {
+            //Opens the connection to the database
+            if (!OpenConnection()) return new DataTable();
+
+            DataTable data = new DataTable();
+            try
+            {
+                string queryString;
+                if (category == "all")
+                {
+                   queryString = "SELECT DISTINCT id, itemName, ItemPrice, category, itemImage FROM item ORDER BY itemName";
+                }
+                else
+                {
+                   queryString = "SELECT id FROM item WHERE category = @categorySearch";
+                }
+                
+                MySqlCommand command = new MySqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@categorySearch", category);
+                using (MySqlDataAdapter sda = new MySqlDataAdapter(command))
+                {
+                    sda.Fill(data);
+                }
+                connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("An error occured while connecting to the database" + err);
+            }
+
+            return data;
+        }
+
+        public static void AddNewItemCategory(string category)
+        {
+            //Opens the connection to the database
+            if (!OpenConnection()) return;
+
+            try
+            {
+                string insertQuery = "INSERT INTO categories (category) VALUES (@category)";
+                MySqlCommand command = new MySqlCommand(insertQuery, connection);
+                command.Parameters.AddWithValue("@category", category);
+                command.ExecuteNonQuery();
+
+                connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("An error occured while connecting to the database" + err);
+            }
+        }
+
+        public static void DeleteItemCategory(string category)
+        {
+            //Opens the connection to the database
+            if (!OpenConnection()) return;
+
+            try
+            {
+                string deleteQuery = $"DELETE FROM `categories` WHERE category = @category";
+                MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+                command.Parameters.AddWithValue("@category", category);
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("An error occured while connecting to the database" + err);
+            }
         }
     }
 }

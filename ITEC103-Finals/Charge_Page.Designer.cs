@@ -53,6 +53,8 @@
             newSaleButton = new Button();
             printReceiptButton = new PictureBox();
             panel3 = new Panel();
+            exhangeLabel = new Label();
+            label7 = new Label();
             receiptDocument = new System.Drawing.Printing.PrintDocument();
             receiptPreviewDialog = new PrintPreviewDialog();
             panel1.SuspendLayout();
@@ -242,7 +244,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.Black;
-            label5.Location = new Point(119, 87);
+            label5.Location = new Point(119, 61);
             label5.Name = "label5";
             label5.Size = new Size(79, 18);
             label5.TabIndex = 3;
@@ -254,7 +256,7 @@
             subTotal.AutoSize = true;
             subTotal.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             subTotal.ForeColor = Color.Black;
-            subTotal.Location = new Point(279, 89);
+            subTotal.Location = new Point(278, 64);
             subTotal.Name = "subTotal";
             subTotal.Size = new Size(23, 16);
             subTotal.TabIndex = 4;
@@ -385,6 +387,8 @@
             // panel3
             // 
             panel3.AutoSize = true;
+            panel3.Controls.Add(exhangeLabel);
+            panel3.Controls.Add(label7);
             panel3.Controls.Add(label5);
             panel3.Controls.Add(chargeButton);
             panel3.Controls.Add(newSaleButton);
@@ -400,6 +404,30 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(590, 405);
             panel3.TabIndex = 13;
+            // 
+            // exhangeLabel
+            // 
+            exhangeLabel.Anchor = AnchorStyles.None;
+            exhangeLabel.AutoSize = true;
+            exhangeLabel.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            exhangeLabel.ForeColor = Color.Black;
+            exhangeLabel.Location = new Point(278, 89);
+            exhangeLabel.Name = "exhangeLabel";
+            exhangeLabel.Size = new Size(23, 16);
+            exhangeLabel.TabIndex = 14;
+            exhangeLabel.Text = "P0";
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.None;
+            label7.AutoSize = true;
+            label7.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.Black;
+            label7.Location = new Point(119, 87);
+            label7.Name = "label7";
+            label7.Size = new Size(84, 18);
+            label7.TabIndex = 13;
+            label7.Text = "Exchange:";
             // 
             // receiptDocument
             // 
@@ -472,5 +500,7 @@
         private Panel panel3;
         private System.Drawing.Printing.PrintDocument receiptDocument;
         private PrintPreviewDialog receiptPreviewDialog;
+        private Label exhangeLabel;
+        private Label label7;
     }
 }

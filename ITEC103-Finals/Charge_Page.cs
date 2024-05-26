@@ -143,6 +143,12 @@ namespace MicroPOS
 
         private void chargeButton_Click(object sender, EventArgs e)
         {
+            if (Cart.items.Count == 0)
+            {
+                MessageBox.Show("Make a new sale");
+                return;
+            }
+
             customerCash = GetCashInput();
             if (customerCash < itemTotalPrice)
             {
@@ -153,9 +159,9 @@ namespace MicroPOS
             exchange = CalculateInvoice(itemTotalPrice, customerCash);
             Receipt.PrintReceipt(receiptDocument, receiptPreviewDialog);
             Cart.items.Clear();
-            orderDisplay.Controls.Clear();
+            //orderDisplay.Controls.Clear();
             cashInput.Text = "";
-            subTotal.Text = "P0";
+            exhangeLabel.Text = $"P{exchange}";
 
         }
 

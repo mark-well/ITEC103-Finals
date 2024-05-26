@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel1 = new Panel();
+            categorySearchBar = new ComboBox();
             searchIcon = new PictureBox();
             searchBar = new TextBox();
             menuButton = new PictureBox();
@@ -68,6 +69,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(5, 107, 241);
+            panel1.Controls.Add(categorySearchBar);
             panel1.Controls.Add(searchIcon);
             panel1.Controls.Add(searchBar);
             panel1.Controls.Add(menuButton);
@@ -78,10 +80,23 @@
             panel1.Size = new Size(770, 45);
             panel1.TabIndex = 0;
             // 
+            // categorySearchBar
+            // 
+            categorySearchBar.BackColor = Color.White;
+            categorySearchBar.DropDownStyle = ComboBoxStyle.DropDownList;
+            categorySearchBar.ForeColor = Color.Black;
+            categorySearchBar.FormattingEnabled = true;
+            categorySearchBar.Items.AddRange(new object[] { "all" });
+            categorySearchBar.Location = new Point(579, 12);
+            categorySearchBar.Name = "categorySearchBar";
+            categorySearchBar.Size = new Size(115, 23);
+            categorySearchBar.TabIndex = 5;
+            categorySearchBar.SelectedIndexChanged += categorySearchBar_SelectedIndexChanged;
+            // 
             // searchIcon
             // 
             searchIcon.Image = Properties.Resources.search_icon;
-            searchIcon.Location = new Point(454, 12);
+            searchIcon.Location = new Point(367, 12);
             searchIcon.Name = "searchIcon";
             searchIcon.Size = new Size(20, 20);
             searchIcon.SizeMode = PictureBoxSizeMode.Zoom;
@@ -96,12 +111,12 @@
             searchBar.Cursor = Cursors.IBeam;
             searchBar.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             searchBar.ForeColor = Color.Black;
-            searchBar.Location = new Point(480, 13);
-            searchBar.MaximumSize = new Size(230, 20);
-            searchBar.MinimumSize = new Size(230, 20);
+            searchBar.Location = new Point(393, 13);
+            searchBar.MaximumSize = new Size(180, 20);
+            searchBar.MinimumSize = new Size(180, 20);
             searchBar.Name = "searchBar";
             searchBar.PlaceholderText = "SEARCH";
-            searchBar.Size = new Size(230, 20);
+            searchBar.Size = new Size(180, 20);
             searchBar.TabIndex = 3;
             searchBar.TextChanged += searchBar_TextChanged;
             // 
@@ -387,5 +402,6 @@
         private TextBox searchBar;
         private ContextMenuStrip contextMenuStrip1;
         private PictureBox searchIcon;
+        private ComboBox categorySearchBar;
     }
 }

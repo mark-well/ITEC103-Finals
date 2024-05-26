@@ -26,22 +26,30 @@ namespace MicroPOS
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.Bounds = Screen.PrimaryScreen.Bounds;
 
+            DataTable categories = DatabaseHandler.LoadCategories();
+            foreach (DataRow row in categories.Rows)
+            {
+                string category = Convert.ToString(row["category"]);
+                categoryInput.Items.Add(category);
+            }
+
             DataTable allItems = DatabaseHandler.LoadItemsFromDatabase();
             foreach (DataRow row in allItems.Rows)
             {
                 int id = Convert.ToInt32(row["id"]);
                 string itemName = Convert.ToString(row["itemName"]);
                 int itemPrice = Convert.ToInt32(row["itemPrice"]);
+                string category = Convert.ToString(row["category"]);
                 byte[] itemImageByteData = (byte[])row["itemImage"];
                 Image itemImage = ImageProccessor.ConvertByteArrayToImage(itemImageByteData);
-                AddNewItem(id, itemName, itemPrice, itemImage);
+                AddNewItem(id, itemName, itemPrice, category, itemImage);
 
                 //Add existing id to the list
                 ids.Add(id);
             }
         }
 
-        private void AddNewItem(int _id, string name, int price, Image itemImage)
+        private void AddNewItem(int _id, string name, int price, string _category, Image itemImage)
         {
             Button deleteItemButton = new Button();
             deleteItemButton.Font = new Font("Arial Narrow", 8.25F);
@@ -119,7 +127,7 @@ namespace MicroPOS
             item.Name = "item";
             item.Size = new Size(100, 135);
             item.TabIndex = 1;
-            item.Tag = new ItemEmbeddedData { id = _id };
+            item.Tag = new ItemEmbeddedData { id = _id, category = _category };
             item.Controls.Add(line);
             itemContainer.Controls.Add(item);
         }
@@ -150,7 +158,7 @@ namespace MicroPOS
 
             //Add new item to database
             DatabaseHandler.AddNewItemToInventory(id, itemName, itemPrice, category, compressedImage);
-            AddNewItem(id, itemName, itemPrice, itemImageIn);
+            AddNewItem(id, itemName, itemPrice, category, itemImageIn);
             itemNameInput.Text = "";
             itemPriceInput.Text = "";
             itemImage.Image = null;
@@ -214,11 +222,14 @@ namespace MicroPOS
             PictureBox image = item.Controls["itemImage"] as PictureBox;
             Control name = item.Controls["itemName"];
             Control price = item.Controls["itemPrice"];
+            ItemEmbeddedData tag = item.Tag as ItemEmbeddedData;
+            string category = tag.category;
             itemToUpdate = item;
 
             itemImage.Image = image.Image;
             itemNameInput.Text = name.Text;
             itemPriceInput.Text = price.Text.Substring(1, price.Text.Length - 1);
+            categoryInput.Text = category;
             updateItemInfo.Visible = true;
             addItemToInventoryButton.Visible = false;
         }
@@ -253,7 +264,7 @@ namespace MicroPOS
             itemContainer.Controls.Remove(itemToUpdate);
             itemToUpdate.Dispose();
 
-            AddNewItem(itemId, name, price, image);
+            AddNewItem(itemId, name, price, category, image);
             itemImage.Image = null;
             itemNameInput.Text = "";
             itemPriceInput.Text = "";
@@ -282,6 +293,12 @@ namespace MicroPOS
 
         public bool CheckIfInputsAreValid()
         {
+            if (categoryInput.Text == "all")
+            {
+                MessageBox.Show("Item category can't be set to \"ALL\"");
+                return false;
+            }
+
             if (itemNameInput.Text == "" || itemPriceInput.Text == "" || categoryInput.Text == "" || itemImage.Image == null)
             {
                 MessageBox.Show("You're missing something please fill in the input properly");
@@ -298,6 +315,12 @@ namespace MicroPOS
             Main mainForm = new Main();
             mainForm.Show();
             this.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ManageCategories frm = new ManageCategories();
+            frm.Show();
         }
     }
 }

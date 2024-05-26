@@ -39,5 +39,6 @@ namespace MicroPOS
     public class ItemEmbeddedData
     {
         public int id { get; set; }
+        public string category { get; set; }
     }
 }

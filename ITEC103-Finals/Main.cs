@@ -16,6 +16,13 @@ namespace MicroPOS
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.Bounds = Screen.PrimaryScreen.Bounds;
 
+            DataTable categories = DatabaseHandler.LoadCategories();
+            foreach (DataRow row in categories.Rows)
+            {
+                string category = Convert.ToString(row["category"]);
+                categorySearchBar.Items.Add(category);
+            }
+
             DataTable allItems = DatabaseHandler.LoadItemsFromDatabase();
             foreach (DataRow row in allItems.Rows)
             {
@@ -28,7 +35,7 @@ namespace MicroPOS
                 //Add the item to the display
                 AddNewItem(id, itemName, itemPrice, itemImage);
             }
-            
+
             Cart.LoadCartItemToDisplay(this);
         }
 
@@ -231,7 +238,7 @@ namespace MicroPOS
                 child.Visible = false;
             }
 
-            DataTable allItems =  DatabaseHandler.SearchItemByName(searchBar.Text);
+            DataTable allItems = DatabaseHandler.SearchItemByName(searchBar.Text);
             foreach (DataRow row in allItems.Rows)
             {
                 int id = Convert.ToInt32(row["id"]);
@@ -248,7 +255,8 @@ namespace MicroPOS
                         {
                             child.Visible = true;
                         }
-                    }catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         continue;
                     }
@@ -256,6 +264,34 @@ namespace MicroPOS
 
                 //Add the item to the display
                 //AddNewItem(id, itemName, itemPrice, itemImage);
+            }
+        }
+
+        private void categorySearchBar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (Control child in itemContainer.Controls)
+            {
+                child.Visible = false;
+            }
+
+            DataTable allItems = DatabaseHandler.FilterByCategory(categorySearchBar.Text);
+            foreach (DataRow row in allItems.Rows)
+            {
+                int id = Convert.ToInt32(row["id"]);
+                foreach (Control child in itemContainer.Controls)
+                {
+                    try
+                    {
+                        if (Convert.ToInt32(child.Name) == id)
+                        {
+                            child.Visible = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        continue;
+                    }
+                }
             }
         }
     }
