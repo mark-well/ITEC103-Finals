@@ -127,9 +127,10 @@ namespace MicroPOS
         //This adds the item to the database
         private void addItemToInventoryButton_Click(object sender, EventArgs e)
         {
-            if (itemNameInput.Text == null) return;
+            /*if (itemNameInput.Text == null) return;
             if (itemPriceInput.Text == null) return;
-            if (itemImage.Image == null) return;
+            if (itemImage.Image == null) return;*/
+            if (!CheckIfInputsAreValid()) return;
 
             int id = GenerateNewId();
             string itemName = itemNameInput.Text;
@@ -223,10 +224,24 @@ namespace MicroPOS
         //Push an item update
         private void updateItemInfo_Click(object sender, EventArgs e)
         {
+            /*if (itemNameInput.Text == null) return;
+            if (itemPriceInput.Text == null) return;
+            if (itemImage.Image == null) return;*/
+            if (!CheckIfInputsAreValid()) return;
+
             ItemEmbeddedData tag = itemToUpdate.Tag as ItemEmbeddedData;
             int itemId = tag.id;
             string name = itemNameInput.Text;
-            int price = Convert.ToInt32(itemPriceInput.Text);
+            int price = 0;
+            try
+            {
+                price = int.Parse(itemPriceInput.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Enter a valid number");
+                return;
+            }
             Image image = itemImage.Image;
             byte[] imageByte = ImageProccessor.ConvertImageToByteArray(image);
             bool updateSuccesful = DatabaseHandler.UpdateItemFromInventory(itemId, name, price, imageByte);
@@ -260,6 +275,18 @@ namespace MicroPOS
             }
 
             return id;
+        }
+
+        public bool CheckIfInputsAreValid()
+        {
+            if (itemNameInput.Text == "" || itemPriceInput.Text == "" || itemImage.Image == null)
+            {
+                MessageBox.Show("You're missing something please fill in the input properly");
+                return false;
+            } else
+            {
+                return true;
+            }
         }
 
         private void backButtonIcon_Click(object sender, EventArgs e)

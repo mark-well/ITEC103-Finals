@@ -28,7 +28,7 @@ namespace MicroPOS
                 //Add the item to the display
                 AddNewItem(id, itemName, itemPrice, itemImage);
             }
-
+            
             Cart.LoadCartItemToDisplay(this);
         }
 
@@ -54,7 +54,7 @@ namespace MicroPOS
             image.SizeMode = PictureBoxSizeMode.Zoom;
             image.TabIndex = 0;
             image.TabStop = false;
-            image.BackColor = Color.White;
+            image.BackColor = Color.Transparent;
 
             Label itemName = new Label();
             itemName.AutoSize = true;
@@ -225,18 +225,37 @@ namespace MicroPOS
 
         private void searchBar_TextChanged(object sender, EventArgs e)
         {
-            itemContainer.Controls.Clear();
+            //itemContainer.Controls.Clear();
+            foreach (Control child in itemContainer.Controls)
+            {
+                child.Visible = false;
+            }
+
             DataTable allItems =  DatabaseHandler.SearchItem(searchBar.Text);
             foreach (DataRow row in allItems.Rows)
             {
                 int id = Convert.ToInt32(row["id"]);
-                string itemName = Convert.ToString(row["itemName"]);
+                /*string itemName = Convert.ToString(row["itemName"]);
                 int itemPrice = Convert.ToInt32(row["itemPrice"]);
                 byte[] itemImageByteData = (byte[])row["itemImage"];
                 Image itemImage = ImageProccessor.ConvertByteArrayToImage(itemImageByteData);
+                */
+                foreach (Control child in itemContainer.Controls)
+                {
+                    try
+                    {
+                        if (Convert.ToInt32(child.Name) == id)
+                        {
+                            child.Visible = true;
+                        }
+                    }catch (Exception ex)
+                    {
+                        continue;
+                    }
+                }
 
                 //Add the item to the display
-                AddNewItem(id, itemName, itemPrice, itemImage);
+                //AddNewItem(id, itemName, itemPrice, itemImage);
             }
         }
     }

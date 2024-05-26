@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel1 = new Panel();
+            searchIcon = new PictureBox();
             searchBar = new TextBox();
             menuButton = new PictureBox();
             appName = new Label();
@@ -48,7 +50,9 @@
             itemName = new Label();
             chargeButton = new Button();
             label1 = new Label();
+            contextMenuStrip1 = new ContextMenuStrip(components);
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)searchIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
             itemContainer.SuspendLayout();
             item1.SuspendLayout();
@@ -64,6 +68,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(5, 107, 241);
+            panel1.Controls.Add(searchIcon);
             panel1.Controls.Add(searchBar);
             panel1.Controls.Add(menuButton);
             panel1.Controls.Add(appName);
@@ -73,13 +78,24 @@
             panel1.Size = new Size(770, 45);
             panel1.TabIndex = 0;
             // 
+            // searchIcon
+            // 
+            searchIcon.Image = Properties.Resources.search_icon;
+            searchIcon.Location = new Point(454, 12);
+            searchIcon.Name = "searchIcon";
+            searchIcon.Size = new Size(20, 20);
+            searchIcon.SizeMode = PictureBoxSizeMode.Zoom;
+            searchIcon.TabIndex = 4;
+            searchIcon.TabStop = false;
+            // 
             // searchBar
             // 
             searchBar.BackColor = Color.SkyBlue;
             searchBar.BorderStyle = BorderStyle.None;
+            searchBar.CausesValidation = false;
             searchBar.Cursor = Cursors.IBeam;
             searchBar.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            searchBar.ForeColor = Color.DimGray;
+            searchBar.ForeColor = Color.Black;
             searchBar.Location = new Point(480, 13);
             searchBar.MaximumSize = new Size(230, 20);
             searchBar.MinimumSize = new Size(230, 20);
@@ -117,7 +133,6 @@
             // 
             itemContainer.AutoScroll = true;
             itemContainer.BackColor = Color.White;
-            itemContainer.BorderStyle = BorderStyle.FixedSingle;
             itemContainer.Controls.Add(item1);
             itemContainer.Dock = DockStyle.Fill;
             itemContainer.Location = new Point(0, 45);
@@ -178,6 +193,7 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(4, 89, 201);
+            panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(cartDisplay);
             panel2.Controls.Add(chargeButton);
             panel2.Controls.Add(label1);
@@ -194,7 +210,7 @@
             cartDisplay.BackColor = Color.White;
             cartDisplay.Controls.Add(cartItem);
             cartDisplay.FlowDirection = FlowDirection.TopDown;
-            cartDisplay.Location = new Point(0, 36);
+            cartDisplay.Location = new Point(-2, 36);
             cartDisplay.Name = "cartDisplay";
             cartDisplay.Size = new Size(200, 312);
             cartDisplay.TabIndex = 4;
@@ -291,9 +307,9 @@
             chargeButton.FlatStyle = FlatStyle.Flat;
             chargeButton.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             chargeButton.ForeColor = Color.White;
-            chargeButton.Location = new Point(6, 354);
+            chargeButton.Location = new Point(6, 352);
             chargeButton.Name = "chargeButton";
-            chargeButton.Size = new Size(190, 30);
+            chargeButton.Size = new Size(188, 30);
             chargeButton.TabIndex = 2;
             chargeButton.Text = "CHARGE";
             chargeButton.UseVisualStyleBackColor = false;
@@ -314,9 +330,14 @@
             label1.Text = "ORDER";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
             // Main
             // 
-            BackColor = Color.FromArgb(238, 238, 238);
+            BackColor = Color.White;
             ClientSize = new Size(770, 441);
             Controls.Add(itemContainer);
             Controls.Add(panel2);
@@ -327,6 +348,7 @@
             Load += Main_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)searchIcon).EndInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).EndInit();
             itemContainer.ResumeLayout(false);
             item1.ResumeLayout(false);
@@ -363,5 +385,7 @@
         private PictureBox menuButton;
         private PictureBox removeCartFromItemButton;
         private TextBox searchBar;
+        private ContextMenuStrip contextMenuStrip1;
+        private PictureBox searchIcon;
     }
 }

@@ -132,7 +132,7 @@ namespace MicroPOS
             DataTable data = new DataTable();
             try
             {
-                string queryString = "SELECT * FROM item WHERE itemName LIKE @searchTerm";
+                string queryString = "SELECT id FROM item WHERE itemName LIKE @searchTerm";
                 MySqlCommand command = new MySqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@searchTerm", "%" + searchTerm + "%");
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(command))
@@ -144,7 +144,6 @@ namespace MicroPOS
             catch (Exception err)
             {
                 MessageBox.Show("An error occured while connecting to the database" + err);
-
             }
 
             return data;
