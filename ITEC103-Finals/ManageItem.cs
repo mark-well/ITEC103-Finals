@@ -138,16 +138,18 @@ namespace MicroPOS
             try
             {
                 itemPrice = int.Parse(itemPriceInput.Text);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Enter a valid number");
                 return;
             }
+            string category = categoryInput.Text.ToLower();
             Image itemImageIn = itemImage.Image;
             byte[] compressedImage = ImageProccessor.ConvertImageToByteArray(itemImageIn);
 
             //Add new item to database
-            DatabaseHandler.AddNewItemToInventory(id, itemName, itemPrice, compressedImage);
+            DatabaseHandler.AddNewItemToInventory(id, itemName, itemPrice, category, compressedImage);
             AddNewItem(id, itemName, itemPrice, itemImageIn);
             itemNameInput.Text = "";
             itemPriceInput.Text = "";
@@ -242,9 +244,10 @@ namespace MicroPOS
                 MessageBox.Show("Enter a valid number");
                 return;
             }
+            string category = categoryInput.Text.ToLower();
             Image image = itemImage.Image;
             byte[] imageByte = ImageProccessor.ConvertImageToByteArray(image);
-            bool updateSuccesful = DatabaseHandler.UpdateItemFromInventory(itemId, name, price, imageByte);
+            bool updateSuccesful = DatabaseHandler.UpdateItemFromInventory(itemId, name, price, category, imageByte);
             if (!updateSuccesful) MessageBox.Show("An error occured while updating item");
 
             itemContainer.Controls.Remove(itemToUpdate);
@@ -279,11 +282,12 @@ namespace MicroPOS
 
         public bool CheckIfInputsAreValid()
         {
-            if (itemNameInput.Text == "" || itemPriceInput.Text == "" || itemImage.Image == null)
+            if (itemNameInput.Text == "" || itemPriceInput.Text == "" || categoryInput.Text == "" || itemImage.Image == null)
             {
                 MessageBox.Show("You're missing something please fill in the input properly");
                 return false;
-            } else
+            }
+            else
             {
                 return true;
             }

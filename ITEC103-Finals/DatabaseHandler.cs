@@ -38,7 +38,7 @@ namespace MicroPOS
             DataTable data = new DataTable();
             try
             {
-                string queryString = "SELECT DISTINCT id, itemName, ItemPrice, itemImage FROM item ORDER BY itemName";
+                string queryString = "SELECT DISTINCT id, itemName, ItemPrice, category, itemImage FROM item ORDER BY itemName";
                 MySqlCommand command = new MySqlCommand(queryString, connection);
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(command))
                 {
@@ -56,18 +56,19 @@ namespace MicroPOS
         }
 
         //Adds an item to the database
-        public static void AddNewItemToInventory(int id, string name, int price, byte[] image)
+        public static void AddNewItemToInventory(int id, string name, int price, string category, byte[] image)
         {
             //Opens the connection to the database
             if (!OpenConnection()) return;
 
             try
             {
-                string insertQuery = "INSERT INTO item (id, itemName, itemPrice, itemImage) VALUES (@id, @itemName, @itemPrice, @itemImage)";
+                string insertQuery = "INSERT INTO item (id, itemName, itemPrice, category, itemImage) VALUES (@id, @itemName, @itemPrice, @category, @itemImage)";
                 MySqlCommand command = new MySqlCommand(insertQuery, connection);
                 command.Parameters.AddWithValue("@id", id);
                 command.Parameters.AddWithValue("@itemName", name);
                 command.Parameters.AddWithValue("@itemprice", price);
+                command.Parameters.AddWithValue("@category", category);
                 command.Parameters.AddWithValue("@itemImage", image);
                 command.ExecuteNonQuery();
 
@@ -100,17 +101,18 @@ namespace MicroPOS
             }
         }
 
-        public static bool UpdateItemFromInventory(int id, string itemName, int itemPrice, byte[] imageByte)
+        public static bool UpdateItemFromInventory(int id, string itemName, int itemPrice, string category, byte[] imageByte)
         {
             //Opens the connection to the database
             if (!OpenConnection()) return false;
 
             try
             {
-                string deleteQuery = $"UPDATE item SET itemName = @newItemName, itemPrice = @newItemPrice, itemImage = @newItemImage WHERE id = {id};";
+                string deleteQuery = $"UPDATE item SET itemName = @newItemName, itemPrice = @newItemPrice, category = @newCategory, itemImage = @newItemImage WHERE id = {id};";
                 MySqlCommand command = new MySqlCommand(deleteQuery, connection);
                 command.Parameters.AddWithValue("@newItemName", itemName);
                 command.Parameters.AddWithValue("@newItemPrice", itemPrice);
+                command.Parameters.AddWithValue("@newCategory", itemPrice);
                 command.Parameters.AddWithValue("@newItemImage", imageByte);
                 command.ExecuteNonQuery();;
                 connection.Close();
@@ -124,7 +126,7 @@ namespace MicroPOS
             }
         }
 
-        public static DataTable SearchItem(string searchTerm)
+        public static DataTable SearchItemByName(string searchTerm)
         {
             //Opens the connection to the database
             if (!OpenConnection()) return new DataTable();

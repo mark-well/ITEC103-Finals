@@ -231,7 +231,7 @@ namespace MicroPOS
                 child.Visible = false;
             }
 
-            DataTable allItems =  DatabaseHandler.SearchItem(searchBar.Text);
+            DataTable allItems =  DatabaseHandler.SearchItemByName(searchBar.Text);
             foreach (DataRow row in allItems.Rows)
             {
                 int id = Convert.ToInt32(row["id"]);

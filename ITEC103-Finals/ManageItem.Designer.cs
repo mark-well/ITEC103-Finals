@@ -32,8 +32,10 @@
             panel1 = new Panel();
             backButtonIcon = new PictureBox();
             label = new Label();
+            categoryInput = new ComboBox();
             splitContainer1 = new SplitContainer();
             panel2 = new Panel();
+            label3 = new Label();
             addItemToInventoryButton = new Button();
             updateItemInfo = new Button();
             itemImage = new PictureBox();
@@ -96,6 +98,16 @@
             label.TabIndex = 0;
             label.Text = "Manage Item";
             // 
+            // categoryInput
+            // 
+            categoryInput.DropDownStyle = ComboBoxStyle.DropDownList;
+            categoryInput.FormattingEnabled = true;
+            categoryInput.Items.AddRange(new object[] { "Beverages", "Food" });
+            categoryInput.Location = new Point(57, 261);
+            categoryInput.Name = "categoryInput";
+            categoryInput.Size = new Size(151, 23);
+            categoryInput.TabIndex = 2;
+            // 
             // splitContainer1
             // 
             splitContainer1.Dock = DockStyle.Fill;
@@ -118,6 +130,8 @@
             // panel2
             // 
             panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(categoryInput);
+            panel2.Controls.Add(label3);
             panel2.Controls.Add(addItemToInventoryButton);
             panel2.Controls.Add(updateItemInfo);
             panel2.Controls.Add(itemImage);
@@ -131,6 +145,16 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(266, 405);
             panel2.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(102, 287);
+            label3.Name = "label3";
+            label3.Size = new Size(55, 15);
+            label3.TabIndex = 9;
+            label3.Text = "Category";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // addItemToInventoryButton
             // 
@@ -181,7 +205,7 @@
             selectImageButton.FlatStyle = FlatStyle.Flat;
             selectImageButton.Font = new Font("Arial Narrow", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             selectImageButton.ForeColor = Color.Black;
-            selectImageButton.Location = new Point(72, 252);
+            selectImageButton.Location = new Point(72, 312);
             selectImageButton.Name = "selectImageButton";
             selectImageButton.Size = new Size(121, 32);
             selectImageButton.TabIndex = 5;
@@ -201,7 +225,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(98, 234);
+            label2.Location = new Point(98, 236);
             label2.Name = "label2";
             label2.Size = new Size(60, 15);
             label2.TabIndex = 4;
@@ -211,7 +235,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(97, 188);
+            label1.Location = new Point(97, 187);
             label1.Name = "label1";
             label1.Size = new Size(66, 15);
             label1.TabIndex = 2;
@@ -221,7 +245,7 @@
             // itemPriceInput
             // 
             itemPriceInput.BorderStyle = BorderStyle.FixedSingle;
-            itemPriceInput.Location = new Point(58, 208);
+            itemPriceInput.Location = new Point(58, 211);
             itemPriceInput.Name = "itemPriceInput";
             itemPriceInput.Size = new Size(150, 23);
             itemPriceInput.TabIndex = 3;
@@ -373,5 +397,7 @@
         private Button button1;
         private Button deleteItemButton;
         private Button editItemButton;
+        private Label label3;
+        private ComboBox categoryInput;
     }
 }
