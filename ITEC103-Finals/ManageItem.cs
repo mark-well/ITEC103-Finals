@@ -42,94 +42,22 @@ namespace MicroPOS
                 string category = Convert.ToString(row["category"]);
                 byte[] itemImageByteData = (byte[])row["itemImage"];
                 Image itemImage = ImageProccessor.ConvertByteArrayToImage(itemImageByteData);
-                AddNewItem(id, itemName, itemPrice, category, itemImage);
 
-                //Add existing id to the list
+                ProductManager.editableProducts.Add(new EditableProduct(this.itemContainer, id, itemName, itemPrice, category, itemImage));
                 ids.Add(id);
             }
+
+            ProductManager.DisplayEditableProductsOnManageItemPage();
+            LoadEditableProductControls(ProductManager.editableProducts);
         }
 
-        private void AddNewItem(int _id, string name, int price, string _category, Image itemImage)
+        public void LoadEditableProductControls(List<EditableProduct> editableProducts)
         {
-            Button deleteItemButton = new Button();
-            deleteItemButton.Font = new Font("Arial Narrow", 8.25F);
-            deleteItemButton.Location = new Point(52, 105);
-            deleteItemButton.Name = "deleteItemButton";
-            deleteItemButton.Size = new Size(43, 25);
-            deleteItemButton.TabIndex = 5;
-            deleteItemButton.Text = "Delete";
-            deleteItemButton.UseVisualStyleBackColor = true;
-            deleteItemButton.BackColor = Color.FromArgb(255, 128, 128);
-            deleteItemButton.Click += DeleteItem;
-
-            Button editItemButton = new Button();
-            editItemButton.Font = new Font("Arial Narrow", 8.25F);
-            editItemButton.Location = new Point(4, 105);
-            editItemButton.Name = "editItemButton";
-            editItemButton.Size = new Size(42, 25);
-            editItemButton.TabIndex = 4;
-            editItemButton.Text = "Edit";
-            editItemButton.UseVisualStyleBackColor = true;
-            editItemButton.BackColor = Color.FromArgb(59, 140, 247);
-            editItemButton.Click += EditItem;
-
-            Label line = new Label();
-            line.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            line.BackColor = Color.Black;
-            line.BorderStyle = BorderStyle.Fixed3D;
-            line.Location = new Point(4, 98);
-            line.Name = "line";
-            line.Size = new Size(93, 2);
-            line.TabIndex = 3;
-
-            Label itemName = new Label();
-            itemName.AutoSize = true;
-            itemName.BackColor = Color.Transparent;
-            itemName.ForeColor = Color.Black;
-            itemName.Location = new Point(0, 68);
-            itemName.MaximumSize = new Size(100, 0);
-            itemName.MinimumSize = new Size(100, 0);
-            itemName.Name = "itemName";
-            itemName.Size = new Size(100, 30);
-            itemName.TabIndex = 1;
-            itemName.Text = name;
-            itemName.TextAlign = ContentAlignment.MiddleCenter;
-
-            Label itemPrice = new Label();
-            itemPrice.AutoSize = true;
-            itemPrice.Dock = DockStyle.Top;
-            itemPrice.Location = new Point(0, 0);
-            itemPrice.Name = "itemPrice";
-            itemPrice.Size = new Size(26, 15);
-            itemPrice.TabIndex = 2;
-            itemPrice.Text = "P" + price.ToString();
-
-            PictureBox image = new PictureBox();
-            image.BackColor = Color.Transparent;
-            image.BackgroundImageLayout = ImageLayout.Center;
-            image.Image = itemImage;
-            image.Location = new Point(2, 2);
-            image.Name = "itemImage";
-            image.Size = new Size(95, 80);
-            image.SizeMode = PictureBoxSizeMode.Zoom;
-            image.TabIndex = 0;
-            image.TabStop = false;
-
-            Panel item = new Panel();
-            item.BorderStyle = BorderStyle.FixedSingle;
-            item.BackColor = Color.White;
-            item.Controls.Add(deleteItemButton);
-            item.Controls.Add(editItemButton);
-            item.Controls.Add(itemName);
-            item.Controls.Add(itemPrice);
-            item.Controls.Add(image);
-            item.Location = new Point(3, 3);
-            item.Name = "item";
-            item.Size = new Size(100, 135);
-            item.TabIndex = 1;
-            item.Tag = new ItemEmbeddedData { id = _id, category = _category };
-            item.Controls.Add(line);
-            itemContainer.Controls.Add(item);
+            foreach (EditableProduct p in editableProducts)
+            {
+                p.UIdeleteItemButton.Click += DeleteItem;
+                p.UIeditItemButton.Click += EditItem;
+            }
         }
 
         //This adds the item to the database
@@ -158,10 +86,12 @@ namespace MicroPOS
 
             //Add new item to database
             DatabaseHandler.AddNewItemToInventory(id, itemName, itemPrice, category, compressedImage);
-            AddNewItem(id, itemName, itemPrice, category, itemImageIn);
+            ProductManager.editableProducts.Add(new EditableProduct(this.itemContainer, id, itemName, itemPrice, category, itemImageIn));
+            ProductManager.DisplayEditableProductsOnManageItemPage();
             itemNameInput.Text = "";
             itemPriceInput.Text = "";
             itemImage.Image = null;
+            categoryInput.Text = "";
         }
 
         //Allow user to select an image for their item
@@ -237,9 +167,6 @@ namespace MicroPOS
         //Push an item update
         private void updateItemInfo_Click(object sender, EventArgs e)
         {
-            /*if (itemNameInput.Text == null) return;
-            if (itemPriceInput.Text == null) return;
-            if (itemImage.Image == null) return;*/
             if (!CheckIfInputsAreValid()) return;
 
             ItemEmbeddedData tag = itemToUpdate.Tag as ItemEmbeddedData;
@@ -264,7 +191,21 @@ namespace MicroPOS
             itemContainer.Controls.Remove(itemToUpdate);
             itemToUpdate.Dispose();
 
-            AddNewItem(itemId, name, price, category, image);
+            for (int i = 0; i < ProductManager.editableProducts.Count; i++)
+            {
+                EditableProduct p = ProductManager.editableProducts[i];
+                if (p.id == itemId)
+                {
+                    ProductManager.editableProducts[i].id = itemId;
+                    ProductManager.editableProducts[i].name = name;
+                    ProductManager.editableProducts[i].price = price;
+                    ProductManager.editableProducts[i].category = category;
+                    ProductManager.editableProducts[i].itemImage = image;
+                }
+            }
+
+            ProductManager.DisplayEditableProductsOnManageItemPage();
+
             itemImage.Image = null;
             itemNameInput.Text = "";
             itemPriceInput.Text = "";
@@ -313,6 +254,8 @@ namespace MicroPOS
         private void backButtonIcon_Click(object sender, EventArgs e)
         {
             Main mainForm = new Main();
+            mainForm.StartPosition = FormStartPosition.Manual;
+            mainForm.Location = this.Location;
             mainForm.Show();
             this.Hide();
         }
@@ -320,6 +263,8 @@ namespace MicroPOS
         private void button1_Click(object sender, EventArgs e)
         {
             ManageCategories frm = new ManageCategories();
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.Location = this.Location;
             frm.Show();
         }
     }

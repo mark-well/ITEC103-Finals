@@ -12,10 +12,7 @@ namespace MicroPOS
 
         private void Main_Load(object sender, EventArgs e)
         {
-            //this.WindowState = FormWindowState.Maximized;
-            //this.FormBorderStyle = FormBorderStyle.None;
-            //this.Bounds = Screen.PrimaryScreen.Bounds;
-
+            
             DataTable categories = DatabaseHandler.LoadCategories();
             foreach (DataRow row in categories.Rows)
             {
@@ -29,67 +26,24 @@ namespace MicroPOS
                 int id = Convert.ToInt32(row["id"]);
                 string itemName = Convert.ToString(row["itemName"]);
                 int itemPrice = Convert.ToInt32(row["itemPrice"]);
+                string category = Convert.ToString(row["category"]);
                 byte[] itemImageByteData = (byte[])row["itemImage"];
                 Image itemImage = ImageProccessor.ConvertByteArrayToImage(itemImageByteData);
 
-                //Add the item to the display
-                AddNewItem(id, itemName, itemPrice, itemImage);
+                ProductManager.products.Add(new Product(this.itemContainer, id, itemName, itemPrice, category, itemImage));
             }
 
+            ProductManager.DisplayProductsOnMainPage();
+            LoadProductControls(ProductManager.products);
             Cart.LoadCartItemToDisplay(this);
         }
 
-        private void AddNewItem(int _id, string name, int price, Image itemImage)
+        public void LoadProductControls(List<Product> products)
         {
-            int panelSize = 100;
-            int imageWidth = 95;
-            int imageHeight = 80;
-
-            Panel item = new Panel();
-            item.Size = new Size(panelSize, panelSize);
-            item.BorderStyle = BorderStyle.FixedSingle;
-            item.Name = _id.ToString();
-            item.BackColor = Color.WhiteSmoke;
-            item.Tag = new ItemEmbeddedData { id = _id };
-
-            PictureBox image = new PictureBox();
-            image.Location = new Point(2, 2);
-            image.Width = imageWidth;
-            image.Height = imageHeight;
-            image.Name = "itemImage";
-            image.Image = itemImage;
-            image.SizeMode = PictureBoxSizeMode.Zoom;
-            image.TabIndex = 0;
-            image.TabStop = false;
-            image.BackColor = Color.Transparent;
-
-            Label itemName = new Label();
-            itemName.AutoSize = true;
-            itemName.BackColor = Color.Transparent;
-            itemName.Dock = DockStyle.Bottom;
-            itemName.ForeColor = Color.Black;
-            itemName.Location = new Point(0, 0);
-            itemName.MaximumSize = new Size(100, 0);
-            itemName.MinimumSize = new Size(100, 0);
-            itemName.Name = "itemName";
-            itemName.Size = new Size(100, 15);
-            itemName.TabIndex = 1;
-            itemName.Text = name;
-            itemName.TextAlign = ContentAlignment.MiddleCenter;
-
-            Label itemPrice = new Label();
-            itemPrice.AutoSize = true;
-            itemPrice.Location = new Point(0, 0);
-            itemPrice.Size = new Size(26, 15);
-            itemPrice.Text = "P" + Convert.ToString(price);
-            itemPrice.Name = "itemPrice";
-            itemPrice.Dock = DockStyle.Top;
-
-            item.Controls.Add(itemPrice);
-            item.Controls.Add(itemName);
-            item.Controls.Add(image);
-            itemContainer.Controls.Add(item);
-            image.Click += AddItemToCart_Click;
+            foreach (Product p in products)
+            {
+                p.UIimage.Click += AddItemToCart_Click;
+            }
         }
 
         //Add item to the cart
@@ -212,6 +166,8 @@ namespace MicroPOS
         private void menuButton_Click(object sender, EventArgs e)
         {
             ManageItem manageItemForm = new ManageItem();
+            manageItemForm.StartPosition = FormStartPosition.Manual;
+            manageItemForm.Location = this.Location;
             manageItemForm.Show();
             this.Hide();
         }

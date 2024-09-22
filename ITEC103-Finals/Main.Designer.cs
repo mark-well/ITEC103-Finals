@@ -358,6 +358,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Main";
             Text = "Main";
             Load += Main_Load;
@@ -383,7 +384,7 @@
         #endregion
         private Panel panel1;
         private Label appName;
-        public FlowLayoutPanel itemContainer;
+        private FlowLayoutPanel itemContainer;
         private Panel item1;
         private Label item1Name;
         private PictureBox item1Image;

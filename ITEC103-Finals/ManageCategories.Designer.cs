@@ -102,6 +102,7 @@
             Controls.Add(addButton);
             Controls.Add(input);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "ManageCategories";
             Text = "Manage Category";
             Load += AddCategoryForm_Load;

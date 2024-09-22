@@ -76,7 +76,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 45);
+            panel1.Size = new Size(770, 45);
             panel1.TabIndex = 2;
             // 
             // button1
@@ -85,7 +85,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Arial", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(660, 9);
+            button1.Location = new Point(630, 11);
             button1.Name = "button1";
             button1.Size = new Size(128, 23);
             button1.TabIndex = 2;
@@ -140,8 +140,8 @@
             // 
             splitContainer1.Panel2.BackColor = Color.White;
             splitContainer1.Panel2.Controls.Add(itemContainer);
-            splitContainer1.Size = new Size(800, 405);
-            splitContainer1.SplitterDistance = 266;
+            splitContainer1.Size = new Size(770, 396);
+            splitContainer1.SplitterDistance = 256;
             splitContainer1.TabIndex = 3;
             // 
             // addItemCategoryButton
@@ -160,7 +160,7 @@
             addItemCategoryButton.Dock = DockStyle.Fill;
             addItemCategoryButton.Location = new Point(0, 0);
             addItemCategoryButton.Name = "addItemCategoryButton";
-            addItemCategoryButton.Size = new Size(266, 405);
+            addItemCategoryButton.Size = new Size(256, 396);
             addItemCategoryButton.TabIndex = 0;
             // 
             // label3
@@ -182,7 +182,7 @@
             addItemToInventoryButton.ForeColor = Color.White;
             addItemToInventoryButton.Location = new Point(36, 354);
             addItemToInventoryButton.Name = "addItemToInventoryButton";
-            addItemToInventoryButton.Size = new Size(202, 38);
+            addItemToInventoryButton.Size = new Size(191, 29);
             addItemToInventoryButton.TabIndex = 6;
             addItemToInventoryButton.Text = "ADD ITEM";
             addItemToInventoryButton.UseVisualStyleBackColor = false;
@@ -197,7 +197,7 @@
             updateItemInfo.ForeColor = Color.White;
             updateItemInfo.Location = new Point(36, 354);
             updateItemInfo.Name = "updateItemInfo";
-            updateItemInfo.Size = new Size(202, 38);
+            updateItemInfo.Size = new Size(191, 29);
             updateItemInfo.TabIndex = 7;
             updateItemInfo.Text = "UPDATE";
             updateItemInfo.UseVisualStyleBackColor = false;
@@ -224,7 +224,7 @@
             selectImageButton.ForeColor = Color.Black;
             selectImageButton.Location = new Point(72, 312);
             selectImageButton.Name = "selectImageButton";
-            selectImageButton.Size = new Size(121, 32);
+            selectImageButton.Size = new Size(113, 36);
             selectImageButton.TabIndex = 5;
             selectImageButton.Text = "Select Image";
             selectImageButton.UseVisualStyleBackColor = false;
@@ -275,7 +275,7 @@
             itemContainer.Dock = DockStyle.Fill;
             itemContainer.Location = new Point(0, 0);
             itemContainer.Name = "itemContainer";
-            itemContainer.Size = new Size(530, 405);
+            itemContainer.Size = new Size(510, 396);
             itemContainer.TabIndex = 0;
             // 
             // item1
@@ -373,10 +373,11 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(770, 441);
             Controls.Add(splitContainer1);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "ManageItem";
             Text = "ManageItem";
             Load += ManageItem_Load;
